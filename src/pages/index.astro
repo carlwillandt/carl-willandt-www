@@ -1,8 +1,80 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import AnnouncementBanner from '../components/ui/AnnouncementBanner.astro';
+import VideoSection from '../components/ui/VideoSection.astro';
+import BlogCard from '../components/ui/BlogCard.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import { getCollection } from 'astro:content';
+import siteSettings from '../content/settings/site.json';
+
+const allPosts = await getCollection('blogi', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
 ---
-<BaseLayout title="Etusivu">
-  <div style="padding: 8rem 0; text-align: center;">
-    <h1 style="font-size: 2rem; font-weight: bold;">Sivusto rakenteilla</h1>
-  </div>
+<BaseLayout title="Etusivu" description={siteSettings.heroBodyText}>
+  <Hero
+    title={siteSettings.heroText}
+    imageSrc="/hero-carl.jpg"
+    imageAlt="Carl Willandt"
+    showKokoomusLogo={true}
+    bodyText={siteSettings.heroBodyText}
+    ctaLabel="Lue lisää"
+    ctaHref="/carl"
+  />
+
+  {siteSettings.announcementBannerText && (
+    <AnnouncementBanner
+      text={siteSettings.announcementBannerText}
+      linkLabel={siteSettings.announcementBannerLinkLabel}
+      linkHref={siteSettings.announcementBannerLinkHref || undefined}
+    />
+  )}
+
+  <VideoSection
+    videoUrl={siteSettings.videoUrl || undefined}
+    bodyHtml={siteSettings.videoBodyText}
+  />
+
+  {latestPosts.length > 0 && (
+    <section style="padding: 4rem 0; background: white;">
+      <div class="container-custom">
+        <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1.5rem;">
+          Ajankohtaista
+        </h2>
+        <div class="blog-grid">
+          {latestPosts.map(post => (
+            <BlogCard
+              title={post.data.title}
+              excerpt={post.data.excerpt}
+              date={post.data.date}
+              category={post.data.category}
+              slug={post.id}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTASection
+    title="LÄHDE MUKAAN tukijoukkoihin!"
+    bodyText="Voit osallistua kampanjaan monella tavalla — tule mukaan vapaaehtoiseksi, jaa viestiä tai tue kampanjaa."
+    ctaLabel="Lähde mukaan"
+    ctaHref="/vapaaehtoiseksi"
+  />
 </BaseLayout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .blog-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

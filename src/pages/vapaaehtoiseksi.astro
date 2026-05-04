@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ui/ContactForm.astro';
+
+const fields = [
+  { name: 'name', label: 'Nimi', type: 'text' as const, required: true, placeholder: 'Etunimi Sukunimi' },
+  { name: 'email', label: 'Sähköposti', type: 'email' as const, required: true, placeholder: 'sinä@esimerkki.fi' },
+  { name: 'phone', label: 'Puhelinnumero', type: 'tel' as const, required: false, placeholder: '+358 40 123 4567' },
+  { name: 'message', label: 'Osaaminen ja kiinnostuksen kohteet', type: 'textarea' as const, required: false, placeholder: 'Kerro lyhyesti, miten haluaisit osallistua kampanjaan...' },
+];
+---
+<BaseLayout
+  title="Vapaaehtoiseksi"
+  description="Liity Carlin tukijoukkoihin — tule mukaan vapaaehtoiseksi!"
+>
+  <section style="background-color: var(--color-navy); padding: 4rem 0;">
+    <div class="container-custom">
+      <h1 style="font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; color: var(--color-cream); text-transform: uppercase; line-height: 1;">
+        TUKIJOUKKOIHIN
+      </h1>
+      <p style="color: rgba(245,243,240,0.6); margin-top: 0.5rem; font-size: 1.25rem;">Vapaaehtoiseksi</p>
+    </div>
+  </section>
+
+  <section style="padding: 3rem 0; background: white;">
+    <div class="container-custom">
+      <div class="volunteer-grid">
+        <div>
+          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #111827;">Miksi liittyä tukijoukkoihin?</h2>
+          <p style="color: #374151; line-height: 1.75; margin-bottom: 1rem;">
+            Kampanjan menestys rakentuu ihmisten aktiivisuudesta. Voit osallistua monella tavalla:
+            jakamalla viestiä somessa, osallistumalla vaalitilaisuuksiin tai auttamalla
+            käytännön järjestelyissä.
+          </p>
+          <p style="color: #374151; line-height: 1.75;">
+            Täytä alla oleva lomake ja otamme sinuun yhteyttä sopivasta tavasta osallistua!
+          </p>
+        </div>
+        <div>
+          <ContactForm
+            formName="vapaaehtoiseksi"
+            fields={fields}
+            submitLabel="Ilmoittaudu mukaan"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .volunteer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+    max-width: 64rem;
+  }
+  @media (min-width: 768px) {
+    .volunteer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
