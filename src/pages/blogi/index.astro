@@ -5,53 +5,72 @@ import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blogi', ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const [featured, ...rest] = posts;
 ---
 <BaseLayout
   title="Blogi / Ajankohtaista"
   description="Carlin kirjoituksia ja kannanottoja ajankohtaisiin aiheisiin."
 >
-  <section style="background-color: var(--color-navy); padding: 4rem 0;">
-    <div class="container-custom">
-      <h1 style="font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; color: var(--color-cream); text-transform: uppercase; line-height: 1;">
+  <!-- Page header — navy extension of sticky nav -->
+  <section style="background-color: var(--color-navy); padding-bottom: 3.125rem;">
+    <div class="container-custom" style="padding-top: 1.25rem; border-top: 1px solid rgba(253,252,251,0.15);">
+      <p style="font-weight: 800; font-size: clamp(3rem, 7vw, 4.75rem); color: var(--color-offwhite); text-transform: uppercase; line-height: 1; margin: 0;">
         BLOGI
-      </h1>
-      <p style="color: rgba(245,243,240,0.6); margin-top: 0.5rem; font-size: 1.125rem;">Ajankohtaista</p>
+      </p>
     </div>
   </section>
 
-  <section style="padding: 3rem 0; background-color: var(--color-cream);">
+  <!-- Blog posts -->
+  <section style="padding: 3rem 0 4rem; background-color: var(--color-cream);">
     <div class="container-custom">
       {posts.length === 0 ? (
         <p style="color: var(--color-body-text); text-align: center; padding: 4rem 0; font-size: 1.125rem;">
           Blogiin ei ole vielä julkaistu postauksia.
         </p>
       ) : (
-        <div class="posts-grid">
-          {posts.map(post => (
-            <BlogCard
-              title={post.data.title}
-              excerpt={post.data.excerpt}
-              date={post.data.date}
-              category={post.data.category}
-              slug={post.id}
-            />
-          ))}
-        </div>
+        <>
+          {featured && (
+            <div class="blog-row-featured" style="display: grid; grid-template-columns: 1fr; gap: 1.875rem; margin-bottom: 1.875rem;">
+              <BlogCard
+                title={featured.data.title}
+                excerpt={featured.data.excerpt}
+                date={featured.data.date}
+                category={featured.data.category}
+                slug={featured.id}
+              />
+              {rest[0] && (
+                <BlogCard
+                  title={rest[0].data.title}
+                  excerpt={rest[0].data.excerpt}
+                  date={rest[0].data.date}
+                  category={rest[0].data.category}
+                  slug={rest[0].id}
+                />
+              )}
+            </div>
+          )}
+          {rest.length > 1 && (
+            <div class="posts-grid" style="display: grid; grid-template-columns: 1fr; gap: 1.875rem;">
+              {rest.slice(1).map(post => (
+                <BlogCard
+                  title={post.data.title}
+                  excerpt={post.data.excerpt}
+                  date={post.data.date}
+                  category={post.data.category}
+                  slug={post.id}
+                />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .posts-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  @media (min-width: 640px) {
-    .posts-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (min-width: 1024px) {
-    .posts-grid { grid-template-columns: 1fr 1fr 1fr; }
+  @media (min-width: 768px) {
+    .blog-row-featured { grid-template-columns: 2fr 1fr !important; }
+    .posts-grid { grid-template-columns: 1fr 1fr 1fr !important; }
   }
 </style>

@@ -18,38 +18,30 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
   {sectionTitle && (
     <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--color-navy); margin-bottom: 1.5rem;">{sectionTitle}</h2>
   )}
-  <div style="border: 1px solid rgba(13,27,42,0.12); border-radius: 0.75rem; overflow: hidden;"
-       data-accordion-group={groupId}>
+  <div data-accordion-group={groupId}>
     {items.map((item, i) => (
-      <div style="border-top: 1px solid rgba(13,27,42,0.08);" class={i === 0 ? 'no-top-border' : ''}>
+      <div class="accordion-item" style={`border-top: 1px solid rgba(13,27,42,0.1);${i === items.length - 1 ? ' border-bottom: 1px solid rgba(13,27,42,0.1);' : ''}`}>
         <button
-          style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; text-align: left; background: var(--color-offwhite); cursor: pointer; border: none; transition: background-color 0.15s;"
+          style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; text-align: left; background: transparent; cursor: pointer; border: none; border-left: 3px solid transparent; padding-left: 0; transition: border-left-color 0.15s;"
           aria-expanded="false"
           aria-controls={`${groupId}-panel-${i}`}
           id={`${groupId}-btn-${i}`}
           data-accordion-trigger
-          onmouseover="this.style.backgroundColor='var(--color-cream)'"
-          onmouseout="this.style.backgroundColor='var(--color-offwhite)'"
         >
           <span style="display: flex; align-items: center; gap: 0.75rem; font-weight: 600; color: var(--color-navy); font-size: 1rem;">
-            {item.icon && (
-              <span aria-hidden="true">{item.icon}</span>
-            )}
+            {item.icon && <span aria-hidden="true">{item.icon}</span>}
             {item.title}
           </span>
-          <svg
-            style="width: 1.25rem; height: 1.25rem; color: var(--color-body-text); transition: transform 0.2s; flex-shrink: 0;"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
-            class="accordion-chevron"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          <!-- Lucide chevron-down -->
+          <svg class="accordion-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--color-body-text); transition: transform 0.2s; flex-shrink: 0;">
+            <path d="m6 9 6 6 6-6"/>
           </svg>
         </button>
         <div
           id={`${groupId}-panel-${i}`}
           role="region"
           aria-labelledby={`${groupId}-btn-${i}`}
-          style="display: none; background: var(--color-offwhite); padding: 0.75rem 1.5rem 1.5rem; border-top: 1px solid rgba(13,27,42,0.06); color: var(--color-body-text); font-size: 0.9375rem; line-height: 1.7;"
+          style="display: none; padding: 0 0 1.25rem 0; color: var(--color-body-text); font-size: 0.9375rem; line-height: 1.75;"
           set:html={item.content}
         />
       </div>
@@ -58,8 +50,14 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
 </div>
 
 <style>
-  .no-top-border {
-    border-top: none !important;
+  .accordion-item button[aria-expanded="true"] {
+    border-left-color: var(--color-green-brand) !important;
+    padding-left: 0.875rem !important;
+    background-color: rgba(78, 138, 91, 0.04) !important;
+  }
+  .accordion-item:has(button[aria-expanded="true"]) > div[role="region"] {
+    background-color: rgba(78, 138, 91, 0.04);
+    padding-left: 0.875rem;
   }
   .accordion-chevron.rotated {
     transform: rotate(180deg);
@@ -71,12 +69,9 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
     const triggers = Array.from(
       group.querySelectorAll<HTMLButtonElement>('[data-accordion-trigger]')
     );
-
     triggers.forEach(trigger => {
       trigger.addEventListener('click', () => {
         const isAlreadyOpen = trigger.getAttribute('aria-expanded') === 'true';
-
-        // Close all
         triggers.forEach(t => {
           t.setAttribute('aria-expanded', 'false');
           const panelId = t.getAttribute('aria-controls');
@@ -86,8 +81,6 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
           }
           t.querySelector('.accordion-chevron')?.classList.remove('rotated');
         });
-
-        // Open clicked if it was closed
         if (!isAlreadyOpen) {
           trigger.setAttribute('aria-expanded', 'true');
           const panelId = trigger.getAttribute('aria-controls');

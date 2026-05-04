@@ -4,7 +4,7 @@ const navLinks = [
   { href: '/carl', label: 'Carl' },
   { href: '/tavoitteeni', label: 'Tavoitteeni' },
   { href: '/blogi', label: 'Blogi / Ajankohtaista' },
-  { href: '/ota-yhteytta', label: 'Ota yhteyttä' },
+  { href: '/ota-yhteytta', label: 'Yhteystiedot' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -15,71 +15,74 @@ function isActive(href: string): boolean {
 }
 ---
 <header style="background-color: var(--color-navy); position: sticky; top: 0; z-index: 50;">
-  <div class="container-custom" style="display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; padding-bottom: 1rem;">
-    <!-- Logo -->
-    <a href="/" aria-label="Carl Willandt — etusivu" style="flex-shrink: 0;">
-      <img src="/carl-willandt-logo.svg" alt="Carl Willandt" style="height: 3rem;" />
+  <div class="container-custom" style="display: flex; align-items: center; justify-content: space-between; padding-top: 0; padding-bottom: 0;">
+
+    <!-- Text-based logo -->
+    <a href="/" aria-label="Carl Willandt — etusivu" style="flex-shrink: 0; text-decoration: none; padding: 0.75rem 0; display: flex; flex-direction: column; gap: 0;">
+      <span style="display: block; font-weight: 400; font-size: 1.25rem; line-height: 1; color: var(--color-offwhite); letter-spacing: 0;">Carl</span>
+      <span style="display: block; font-weight: 800; font-size: 1.25rem; line-height: 1; color: var(--color-offwhite); text-transform: uppercase; letter-spacing: 0;">WILLANDT</span>
+      <span style="display: block; font-weight: 500; font-size: 0.5625rem; line-height: 1; color: var(--color-offwhite); text-transform: uppercase; letter-spacing: 0.18em; margin-top: 0.25rem; white-space: nowrap;">Eduskuntavaaliehdokas 2027</span>
     </a>
 
     <!-- Desktop nav -->
-    <nav class="desktop-nav" aria-label="Päänavigaatio" style="display: none; align-items: center; gap: 1.5rem;">
+    <nav class="desktop-nav" aria-label="Päänavigaatio" style="display: none; align-items: stretch; gap: 0;">
       {navLinks.map(link => (
         <a
           href={link.href}
-          style={`font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; transition: color 0.2s; color: ${isActive(link.href) ? 'var(--color-cream)' : 'rgba(245,243,240,0.7)'};`}
+          style={`display: flex; align-items: center; padding: 0 1.3125rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; text-decoration: none; color: var(--color-offwhite); white-space: nowrap; border-bottom: ${isActive(link.href) ? '4px solid var(--color-green-brand)' : '4px solid transparent'}; transition: border-color 0.2s; height: 100%;`}
         >
           {link.label}
         </a>
       ))}
-      <a href="/vapaaehtoiseksi" class="btn-primary" style="margin-left: 0.5rem; font-size: 0.875rem;">
-        Tukijoukot →
+      <a href="/vapaaehtoiseksi" class="btn-primary" style="margin-left: 1.3125rem; align-self: center; font-size: 0.875rem;">
+        Lahjoitukset
       </a>
     </nav>
 
-    <!-- Mobile hamburger button -->
+    <!-- Mobile hamburger -->
     <button
       id="menu-toggle"
       aria-label="Avaa valikko"
       aria-expanded="false"
       aria-controls="mobile-menu"
-      style="background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--color-cream);"
+      style="background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--color-offwhite);"
       class="mobile-toggle"
     >
-      <svg id="icon-hamburger" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      <svg id="icon-hamburger" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>
       </svg>
-      <svg id="icon-close" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      <svg id="icon-close" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="display: none;">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" style="display: none; background-color: var(--color-navy-light); border-top: 1px solid rgba(255,255,255,0.1);">
-    <nav class="container-custom" aria-label="Mobiilinavigaatio" style="padding-top: 1rem; padding-bottom: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+  <div id="mobile-menu" style="display: none; background-color: var(--color-navy-light); border-top: 1px solid rgba(255,255,255,0.08);">
+    <nav class="container-custom" aria-label="Mobiilinavigaatio" style="padding-top: 0.75rem; padding-bottom: 1rem; display: flex; flex-direction: column;">
       {navLinks.map(link => (
         <a
           href={link.href}
-          style="color: rgba(245,243,240,0.8); font-weight: 600; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.875rem; text-decoration: none;"
+          style={`color: var(--color-offwhite); font-weight: 600; font-size: 0.9375rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; border-left: ${isActive(link.href) ? '3px solid var(--color-green-brand)' : '3px solid transparent'}; padding-left: ${isActive(link.href) ? '0.75rem' : '0'};`}
         >
           {link.label}
         </a>
       ))}
       <a href="/vapaaehtoiseksi" class="btn-primary" style="text-align: center; margin-top: 1rem; font-size: 0.875rem;">
-        Tukijoukot →
+        Lahjoitukset
       </a>
     </nav>
   </div>
 </header>
 
 <style>
+  header .container-custom {
+    height: 4.5rem;
+  }
   @media (min-width: 1024px) {
-    .desktop-nav {
-      display: flex !important;
-    }
-    .mobile-toggle {
-      display: none !important;
-    }
+    .desktop-nav { display: flex !important; height: 100%; }
+    .mobile-toggle { display: none !important; }
+    header .container-custom { height: 5rem; }
   }
 </style>
 
@@ -88,7 +91,6 @@ function isActive(href: string): boolean {
   const menu = document.getElementById('mobile-menu')!;
   const iconHamburger = document.getElementById('icon-hamburger')!;
   const iconClose = document.getElementById('icon-close')!;
-
   toggle.addEventListener('click', () => {
     const isOpen = menu.style.display !== 'none';
     menu.style.display = isOpen ? 'none' : 'block';

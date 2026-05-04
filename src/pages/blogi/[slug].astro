@@ -20,52 +20,63 @@ const formattedDate = post.data.date.toLocaleDateString('fi-FI', {
 });
 ---
 <BaseLayout title={post.data.title} description={post.data.excerpt}>
-  <section style="background-color: var(--color-navy); padding: 4rem 0;">
-    <div class="container-custom" style="max-width: 48rem;">
+  <!-- Page header: navy, integrates with sticky nav -->
+  <section style="background-color: var(--color-navy); padding-bottom: 3.125rem;">
+    <div class="container-custom" style="padding-top: 1.25rem; border-top: 1px solid rgba(253,252,251,0.15);">
+      <!-- Back link with Lucide arrow-left -->
       <a
         href="/blogi"
-        style="display: inline-flex; align-items: center; gap: 0.25rem; color: rgba(245,243,240,0.5); font-size: 0.875rem; text-decoration: none; margin-bottom: 2rem; transition: color 0.2s;"
-        onmouseover="this.style.color='var(--color-cream)'"
-        onmouseout="this.style.color='rgba(245,243,240,0.5)'"
+        style="display: inline-flex; align-items: center; gap: 0.3125rem; color: var(--color-green-brand); font-weight: 600; font-size: 0.875rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; margin-bottom: 1rem;"
       >
-        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        <!-- lucide/arrow-left -->
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
         </svg>
         Takaisin blogiin
       </a>
-      <span style="display: inline-block; background: var(--color-green-brand); color: white; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 0.25rem; margin-bottom: 1rem;">
-        {post.data.category}
-      </span>
-      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--color-cream); line-height: 1.2; margin-bottom: 0.75rem;">
+
+      <!-- BLOGI label -->
+      <p style="font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.75rem); color: var(--color-offwhite); text-transform: uppercase; line-height: 1; margin: 0 0 0;">
+        BLOGI
+      </p>
+      <!-- Article title -->
+      <p style="font-weight: 400; font-size: clamp(1.5rem, 4vw, 3.5rem); color: var(--color-offwhite); line-height: 1.1; margin: 0;">
         {post.data.title}
-      </h1>
-      <time style="color: rgba(245,243,240,0.5); font-size: 0.875rem;" datetime={post.data.date.toISOString()}>
-        {formattedDate}
-      </time>
+      </p>
     </div>
   </section>
 
-  <article style="padding: 3rem 0; background-color: var(--color-cream);">
-    <div
-      class="container-custom article-body"
-      style="max-width: 48rem;"
-    >
-      <Content />
+  <!-- Article content -->
+  <article style="padding: 3rem 0 4rem; background-color: var(--color-cream);">
+    <div class="container-custom">
+      <div style="max-width: 52.5rem;">
+        <!-- Category // date meta -->
+        <div style="display: flex; align-items: center; gap: 1.25rem; color: #b8b2aa; font-size: 1rem; line-height: 1.75; padding-bottom: 0.3125rem; border-bottom: 1px solid rgba(13,27,42,0.15); margin-bottom: 2.5rem;">
+          <span style="font-weight: 700;">{post.data.category}</span>
+          <span style="font-weight: 500;">//</span>
+          <time datetime={post.data.date.toISOString()} style="font-weight: 500;">{formattedDate}</time>
+        </div>
+
+        <div class="article-body">
+          <Content />
+        </div>
+      </div>
     </div>
   </article>
 </BaseLayout>
 
 <style>
   .article-body {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: var(--color-body-text);
+    font-size: 1.3125rem;
+    line-height: 1.75;
+    color: var(--color-navy);
+    font-weight: 400;
   }
-  .article-body p { margin-bottom: 1.5rem; }
-  .article-body h2 { font-size: 1.5rem; font-weight: 700; margin: 2rem 0 1rem; color: var(--color-navy); }
-  .article-body h3 { font-size: 1.25rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: var(--color-navy); }
+  .article-body p { margin-bottom: 1.25rem; }
+  .article-body h2 { font-size: 1.625rem; font-weight: 700; margin: 2.5rem 0 1rem; color: var(--color-navy); }
+  .article-body h3 { font-size: 1.25rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--color-navy); }
   .article-body ul, .article-body ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
   .article-body li { margin-bottom: 0.5rem; }
-  .article-body a { color: var(--color-green-brand); }
-  .article-body strong { font-weight: 700; color: var(--color-navy); }
+  .article-body a { color: var(--color-green-brand); text-decoration: underline; }
+  .article-body strong { font-weight: 700; }
 </style>
