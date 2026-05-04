@@ -1,0 +1,60 @@
+backend:
+  name: github
+  repo: samuliraappana/Carl-Willandt
+  branch: feature/carl-willandt-website
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: blogi
+    label: "Blogi"
+    label_singular: "Blogipostaus"
+    folder: src/content/blogi
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Otsikko", name: title, widget: string }
+      - { label: "Päivämäärä", name: date, widget: datetime }
+      - { label: "Kategoria", name: category, widget: string,
+          hint: "Vapaa teksti, esim. 'Talous & kasvu', 'Turvallisuus', 'Koulutus'" }
+      - { label: "Tiivistelmä", name: excerpt, widget: text,
+          hint: "Lyhyt kuvaus, näkyy blogikorteissa ja hakukoneille" }
+      - { label: "Luonnos (ei julkinen)", name: draft, widget: boolean, default: false }
+      - { label: "Sisältö", name: body, widget: markdown }
+
+  - name: medialle
+    label: "Medialle"
+    label_singular: "Lehdistötiedote"
+    folder: src/content/medialle
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Otsikko", name: title, widget: string }
+      - { label: "Päivämäärä", name: date, widget: datetime }
+      - { label: "Tiivistelmä", name: excerpt, widget: text }
+      - { label: "Luonnos", name: draft, widget: boolean, default: false }
+      - { label: "Sisältö", name: body, widget: markdown }
+
+  - name: asetukset
+    label: "Sivuston asetukset"
+    files:
+      - label: "Etusivu"
+        name: etusivu
+        file: src/content/settings/site.json
+        fields:
+          - { label: "Hero-otsikko", name: heroText, widget: string }
+          - { label: "Hero-leipäteksti", name: heroBodyText, widget: text }
+          - { label: "Ilmoitusbannerin teksti (tyhjä = piilotettu)",
+              name: announcementBannerText, widget: string, required: false }
+          - { label: "Banneri: linkki-teksti", name: announcementBannerLinkLabel,
+              widget: string, required: false }
+          - { label: "Banneri: linkki-URL", name: announcementBannerLinkHref,
+              widget: string, required: false }
+          - { label: "Video-URL (YouTube embed, esim. https://www.youtube.com/embed/xyz)",
+              name: videoUrl, widget: string, required: false }
+          - { label: "Video-osion teksti (HTML)", name: videoBodyText,
+              widget: markdown, required: false }
+          - { label: "X / Twitter -profiili URL", name: socialX, widget: string }
+          - { label: "Instagram-profiili URL", name: socialInstagram, widget: string }
+          - { label: "Facebook-profiili URL", name: socialFacebook, widget: string }
