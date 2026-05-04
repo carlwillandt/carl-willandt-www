@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import type { AccordionItem } from '../components/ui/Accordion.astro';
+
+const accordionItems: AccordionItem[] = [
+  {
+    id: 'juurista',
+    title: 'Juurista',
+    icon: '🏡',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+  {
+    id: 'oppimisesta',
+    title: 'Oppimisesta',
+    icon: '📚',
+    content: `<p>Koulupolkuni alkoi Kuokkolan kyläkoulussa, jota isäni ja vanhempani sisarukseinkin olivat käyneet.
+      Ala-asteen jälkeen opintie jatkui Häkkarin yläasteen englanninkielisellä luokalla ja Lempäälän lukiossa,
+      josta valmistuin ylioppilaaksi vuonna 2002.</p>
+      <p>Vuonna 2005 aloitin opintoini Tampereen yliopistossa. Valmistuin vuonna 2013 filosofian maisteriksi.</p>`,
+  },
+  {
+    id: 'kodista',
+    title: 'Kodista',
+    icon: '🏠',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+  {
+    id: 'urheilusta',
+    title: 'Urheilusta',
+    icon: '⚽',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+  {
+    id: 'metsastyksesta',
+    title: 'Metsästyksestä',
+    icon: '🌲',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+  {
+    id: 'maanpuolustuksesta',
+    title: 'Maanpuolustuksesta',
+    icon: '🛡️',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+];
+---
+<BaseLayout
+  title="Carl"
+  description="Tutustu Carl Willandtiin — perheenisä, filosofian maisteri ja viestintäpäällikkö Hämeenkyröstä."
+>
+  <Hero
+    title="CARL"
+    imageSrc="/hero-carl.jpg"
+    imageAlt="Carl Willandt"
+  />
+
+  <section style="padding: 3rem 0 4rem; background: white;">
+    <div class="container-custom" style="max-width: 48rem;">
+      <p style="font-size: 1.125rem; color: #374151; line-height: 1.75; margin-bottom: 2.5rem;">
+        Olen nelikymppinen perheenisä, filosofian maisteri ja viestintäpäällikkö Hämeenkyröstä,
+        jonka arki on varsin tyypillistä ruuhkavuosielämää, jota ohjaavat työ, perhe, vastuu ja huoli
+        tulevasta. Tällä sivulla pääset tutustumaan minuun tarkemmin.
+      </p>
+
+      <Accordion items={accordionItems} sectionTitle="Elämäni eri osa-alueet" />
+    </div>
+  </section>
+</BaseLayout>

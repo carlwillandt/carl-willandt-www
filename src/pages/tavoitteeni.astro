@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import type { AccordionItem } from '../components/ui/Accordion.astro';
+
+const accordionItems: AccordionItem[] = [
+  {
+    id: 'sivistys',
+    title: 'Sivistys on Suomen kivijalka',
+    icon: '🎓',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+  {
+    id: 'turvallisuus',
+    title: 'Turvallisuus syntyy taloudesta ja puolustuskyvystä',
+    icon: '🛡️',
+    content: `<p>Turvallisuus koostuu useista asioista, mutta ennen kaikkea se syntyy kestävästä taloudesta
+      ja uskottavasta puolustuksesta. Reserviläisenä ja metsästäjänä turvallisuus ei ole minulle
+      ideologia, vaan velvollisuus.</p>
+      <h4>Keinot</h4>
+      <ul>
+        <li>Velkaantuminen kuriin ja talous nousuun. Kokoomuksen johdolla kaikkien vastuullisten
+        eduskuntapuolueiden kesken neuvoteltu velkajarru.</li>
+        <li>Omavaraisuus ja huoltovarmuus kunniaan. Suomen tulee olla kiertotalouden ja uusiutuvan
+        energian hyödyntämisen mallimaa.</li>
+        <li>Kansalaistaidot kuntoon. Suomen on puolustamisen arvoinen maa.</li>
+      </ul>`,
+  },
+  {
+    id: 'vapaus',
+    title: 'Vapaus ei ole ilman vastuuta',
+    icon: '⚖️',
+    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
+  },
+];
+---
+<BaseLayout
+  title="Tavoitteeni"
+  description="Minulle kokoomuslaisuus tarkoittaa vastuullisuutta, sivistystä ja arvopohjaista realismia."
+>
+  <Hero
+    title="TAVOITTEENI"
+    imageSrc="/hero-carl.jpg"
+    imageAlt="Carl Willandt"
+  />
+
+  <section style="padding: 3rem 0 4rem; background: white;">
+    <div class="container-custom" style="max-width: 48rem;">
+      <p style="font-size: 1.125rem; color: #374151; line-height: 1.75; margin-bottom: 2.5rem;">
+        Minulle kokoomuslaisuus tarkoittaa vastuullisuutta, sivistystä ja arvopohjaista realismia.
+        Sivistys, turvallisuus ja vapaus ovat arvoja, joille pohjaan oman ajattelumaailmani ja
+        yhteiskuntakäsitykseni. Tällä sivulla avaan hieman, mitä nämä arvot minulle konkreettisesti merkitsevät.
+      </p>
+
+      <Accordion items={accordionItems} />
+    </div>
+  </section>
+</BaseLayout>

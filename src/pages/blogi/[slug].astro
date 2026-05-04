@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blogi');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('fi-FI', {
+  day: 'numeric',
+  month: 'numeric',
+  year: 'numeric',
+});
+---
+<BaseLayout title={post.data.title} description={post.data.excerpt}>
+  <section style="background-color: var(--color-navy); padding: 4rem 0;">
+    <div class="container-custom" style="max-width: 48rem;">
+      <a
+        href="/blogi"
+        style="display: inline-flex; align-items: center; gap: 0.25rem; color: rgba(245,243,240,0.5); font-size: 0.875rem; text-decoration: none; margin-bottom: 2rem; transition: color 0.2s;"
+        onmouseover="this.style.color='var(--color-cream)'"
+        onmouseout="this.style.color='rgba(245,243,240,0.5)'"
+      >
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Takaisin blogiin
+      </a>
+      <span style="display: inline-block; background: var(--color-green-brand); color: white; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.25rem 0.75rem; border-radius: 0.25rem; margin-bottom: 1rem;">
+        {post.data.category}
+      </span>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--color-cream); line-height: 1.2; margin-bottom: 0.75rem;">
+        {post.data.title}
+      </h1>
+      <time style="color: rgba(245,243,240,0.5); font-size: 0.875rem;" datetime={post.data.date.toISOString()}>
+        {formattedDate}
+      </time>
+    </div>
+  </section>
+
+  <article style="padding: 3rem 0; background: white;">
+    <div
+      class="container-custom article-body"
+      style="max-width: 48rem;"
+    >
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-body {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #374151;
+  }
+  .article-body p { margin-bottom: 1.5rem; }
+  .article-body h2 { font-size: 1.5rem; font-weight: 700; margin: 2rem 0 1rem; color: #111827; }
+  .article-body h3 { font-size: 1.25rem; font-weight: 700; margin: 1.75rem 0 0.75rem; color: #111827; }
+  .article-body ul, .article-body ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+  .article-body li { margin-bottom: 0.5rem; }
+  .article-body a { color: var(--color-green-brand); }
+  .article-body strong { font-weight: 700; color: #111827; }
+</style>

@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:wght@700&display=swap');
+
+@theme {
+  --color-navy: #0D1F2D;
+  --color-navy-light: #1B2D3E;
+  --color-green-brand: #3A7A4F;
+  --color-green-banner: #2D5A3D;
+  --color-cream: #F5F3F0;
+  --color-cta-dark: #1C2B1E;
+
+  --font-family-sans: 'DM Sans', system-ui, sans-serif;
+  --font-family-serif: 'Lora', Georgia, serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-family-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .container-custom {
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-custom {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-custom {
+      padding-inline: 2rem;
+    }
+  }
+}
+
+@layer components {
+  .btn-primary {
+    background-color: var(--color-green-brand);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-block;
+    transition: background-color 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #2d5e3c;
+  }
+
+  .btn-outline {
+    border: 2px solid var(--color-cream);
+    color: var(--color-cream);
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-block;
+    transition: background-color 0.2s, color 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-outline:hover {
+    background-color: var(--color-cream);
+    color: var(--color-navy);
+  }
+}
