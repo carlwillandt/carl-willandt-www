@@ -1,0 +1,103 @@
+---
+export interface AccordionItem {
+  id: string;
+  title: string;
+  icon?: string;
+  content: string;
+}
+
+interface Props {
+  items: AccordionItem[];
+  sectionTitle?: string;
+}
+
+const { items, sectionTitle } = Astro.props;
+const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
+---
+<div>
+  {sectionTitle && (
+    <h2 style="font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 1.5rem;">{sectionTitle}</h2>
+  )}
+  <div style="border: 1px solid #e5e7eb; border-radius: 0.5rem; overflow: hidden;"
+       data-accordion-group={groupId}>
+    {items.map((item, i) => (
+      <div style="border-top: 1px solid #e5e7eb;" class={i === 0 ? 'no-top-border' : ''}>
+        <button
+          style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; text-align: left; background: white; cursor: pointer; border: none; transition: background-color 0.15s;"
+          aria-expanded="false"
+          aria-controls={`${groupId}-panel-${i}`}
+          id={`${groupId}-btn-${i}`}
+          data-accordion-trigger
+          onmouseover="this.style.backgroundColor='#f9fafb'"
+          onmouseout="this.style.backgroundColor='white'"
+        >
+          <span style="display: flex; align-items: center; gap: 0.75rem; font-weight: 600; color: #111827; font-size: 1rem;">
+            {item.icon && (
+              <span aria-hidden="true">{item.icon}</span>
+            )}
+            {item.title}
+          </span>
+          <svg
+            style="width: 1.25rem; height: 1.25rem; color: #9ca3af; transition: transform 0.2s; flex-shrink: 0;"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+            class="accordion-chevron"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div
+          id={`${groupId}-panel-${i}`}
+          role="region"
+          aria-labelledby={`${groupId}-btn-${i}`}
+          style="display: none; background: white; padding: 0.75rem 1.5rem 1.5rem; border-top: 1px solid #f3f4f6;"
+          set:html={item.content}
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .no-top-border {
+    border-top: none !important;
+  }
+  .accordion-chevron.rotated {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-accordion-group]').forEach(group => {
+    const triggers = Array.from(
+      group.querySelectorAll<HTMLButtonElement>('[data-accordion-trigger]')
+    );
+
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const isAlreadyOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all
+        triggers.forEach(t => {
+          t.setAttribute('aria-expanded', 'false');
+          const panelId = t.getAttribute('aria-controls');
+          if (panelId) {
+            const panel = document.getElementById(panelId);
+            if (panel) panel.style.display = 'none';
+          }
+          t.querySelector('.accordion-chevron')?.classList.remove('rotated');
+        });
+
+        // Open clicked if it was closed
+        if (!isAlreadyOpen) {
+          trigger.setAttribute('aria-expanded', 'true');
+          const panelId = trigger.getAttribute('aria-controls');
+          if (panelId) {
+            const panel = document.getElementById(panelId);
+            if (panel) panel.style.display = 'block';
+          }
+          trigger.querySelector('.accordion-chevron')?.classList.add('rotated');
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,74 @@
+---
+interface FormField {
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'tel' | 'textarea';
+  required?: boolean;
+  placeholder?: string;
+}
+
+interface Props {
+  formName: string;
+  fields: FormField[];
+  submitLabel?: string;
+}
+
+const { formName, fields, submitLabel = 'Lähetä' } = Astro.props;
+
+const inputStyle =
+  'width: 100%; border: 1px solid #d1d5db; border-radius: 0.5rem; ' +
+  'padding: 0.75rem 1rem; font-size: 0.875rem; color: #111827; ' +
+  'font-family: inherit; box-sizing: border-box; outline: none; ' +
+  'transition: border-color 0.2s;';
+---
+<form
+  name={formName}
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  style="display: flex; flex-direction: column; gap: 1.25rem;"
+>
+  <input type="hidden" name="form-name" value={formName} />
+  <p style="display: none;" aria-hidden="true">
+    <label>Jätä tyhjäksi: <input name="bot-field" /></label>
+  </p>
+
+  {fields.map(field => (
+    <div>
+      <label
+        for={`${formName}-${field.name}`}
+        style="display: block; font-size: 0.875rem; font-weight: 600; color: #374151; margin-bottom: 0.25rem;"
+      >
+        {field.label}
+        {field.required && (
+          <span style="color: #ef4444; margin-left: 0.25rem;" aria-hidden="true">*</span>
+        )}
+      </label>
+      {field.type === 'textarea' ? (
+        <textarea
+          id={`${formName}-${field.name}`}
+          name={field.name}
+          rows={5}
+          required={field.required ?? false}
+          placeholder={field.placeholder ?? ''}
+          style={inputStyle}
+        />
+      ) : (
+        <input
+          id={`${formName}-${field.name}`}
+          type={field.type}
+          name={field.name}
+          required={field.required ?? false}
+          placeholder={field.placeholder ?? ''}
+          style={inputStyle}
+        />
+      )}
+    </div>
+  ))}
+
+  <div>
+    <button type="submit" class="btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+      {submitLabel}
+    </button>
+  </div>
+</form>
