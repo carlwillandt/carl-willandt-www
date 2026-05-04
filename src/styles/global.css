@@ -1,43 +1,47 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap');
 
 @theme {
-  --color-navy: #0D1F2D;
-  --color-navy-light: #1B2D3E;
-  --color-green-brand: #3A7A4F;
-  --color-green-banner: #2D5A3D;
-  --color-cream: #F5F3F0;
-  --color-cta-dark: #1C2B1E;
+  --color-navy:         #0d1b2a;
+  --color-navy-light:   #14283d;
+  --color-navy-footer:  #0d1b2a;
+  --color-green-brand:  #4e8a5b;
+  --color-green-banner: #4e8a5b;
+  --color-cream:        #f5f3f0;
+  --color-offwhite:     #fdfcfb;
+  --color-cta-gold:     #9c8259;
+  --color-body-text:    #7a746c;
 
-  --font-family-sans: 'DM Sans', system-ui, sans-serif;
-  --font-family-serif: 'Lora', Georgia, serif;
+  --font-family-sans: 'Barlow', system-ui, sans-serif;
 }
 
 @layer base {
   body {
     font-family: var(--font-family-sans);
+    background-color: var(--color-cream);
+    color: var(--color-navy);
     -webkit-font-smoothing: antialiased;
   }
 }
 
 @layer utilities {
   .container-custom {
-    max-width: 72rem;
+    max-width: 90rem;
     margin-inline: auto;
-    padding-inline: 1rem;
+    padding-inline: 1.25rem;
   }
 
   @media (min-width: 640px) {
     .container-custom {
-      padding-inline: 1.5rem;
+      padding-inline: 2rem;
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
     .container-custom {
-      padding-inline: 2rem;
+      padding-inline: 5.3125rem;
     }
   }
 }
@@ -45,34 +49,56 @@
 @layer components {
   .btn-primary {
     background-color: var(--color-green-brand);
-    color: white;
-    padding: 0.75rem 1.5rem;
+    color: var(--color-offwhite);
+    padding: 0.6875rem 1.25rem;
     border-radius: 9999px;
+    font-family: var(--font-family-sans);
     font-weight: 600;
     font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
     display: inline-block;
+    border: 1px solid rgba(255,255,255,0.2);
     transition: background-color 0.2s;
     text-decoration: none;
   }
 
   .btn-primary:hover {
-    background-color: #2d5e3c;
+    background-color: #3d6e48;
   }
 
   .btn-outline {
-    border: 2px solid var(--color-cream);
-    color: var(--color-cream);
-    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--color-offwhite);
+    color: var(--color-offwhite);
+    padding: 0.6875rem 1.25rem;
     border-radius: 9999px;
+    font-family: var(--font-family-sans);
     font-weight: 600;
     font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
     display: inline-block;
     transition: background-color 0.2s, color 0.2s;
     text-decoration: none;
   }
 
   .btn-outline:hover {
-    background-color: var(--color-cream);
+    background-color: var(--color-offwhite);
     color: var(--color-navy);
+  }
+
+  .blog-card {
+    background: var(--color-offwhite);
+    border: 1px solid rgba(255,255,255,0.9);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.2s;
+  }
+
+  .blog-card:hover {
+    box-shadow: 0 4px 20px rgba(13,27,42,0.1);
   }
 }

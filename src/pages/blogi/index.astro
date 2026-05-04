@@ -19,10 +19,10 @@ const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueO
     </div>
   </section>
 
-  <section style="padding: 3rem 0; background: white;">
+  <section style="padding: 3rem 0; background-color: var(--color-cream);">
     <div class="container-custom">
       {posts.length === 0 ? (
-        <p style="color: #6b7280; text-align: center; padding: 4rem 0; font-size: 1.125rem;">
+        <p style="color: var(--color-body-text); text-align: center; padding: 4rem 0; font-size: 1.125rem;">
           Blogiin ei ole vielä julkaistu postauksia.
         </p>
       ) : (
