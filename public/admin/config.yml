@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: carl-willandt/carl-willandt-www
+  repo: carlwillandt/carl-willandt-www
   branch: main
 
 media_folder: public/uploads
