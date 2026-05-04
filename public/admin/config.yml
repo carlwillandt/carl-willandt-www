@@ -43,7 +43,8 @@ collections:
         name: etusivu
         file: src/content/settings/site.json
         fields:
-          - { label: "Hero-otsikko", name: heroText, widget: string }
+          - { label: "Hero-otsikko (lihavoitu rivi, esim. SIVISTYSTÄ,)", name: heroTextBold, widget: string }
+          - { label: "Hero-otsikko (kevyt rivi, esim. realismia ja rohkeutta)", name: heroTextRegular, widget: string }
           - { label: "Hero-leipäteksti", name: heroBodyText, widget: text }
           - { label: "Ilmoitusbannerin teksti (tyhjä = piilotettu)",
               name: announcementBannerText, widget: string, required: false }

@@ -12,10 +12,13 @@ const allPosts = await getCollection('blogi', ({ data }) => !data.draft);
 const latestPosts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 4);
+
+const [featured, ...rest] = latestPosts;
 ---
 <BaseLayout title="Etusivu" description={siteSettings.heroBodyText}>
   <Hero
-    title={siteSettings.heroText}
+    titleBold={siteSettings.heroTextBold}
+    titleRegular={siteSettings.heroTextRegular}
     imageSrc="/hero-carl.jpg"
     imageAlt="Carl Willandt"
     showKokoomusLogo={true}
@@ -38,43 +41,63 @@ const latestPosts = allPosts
   />
 
   {latestPosts.length > 0 && (
-    <section style="padding: 4rem 0; background-color: var(--color-cream);">
+    <section style="padding: 0 0 3rem; background-color: var(--color-cream);">
       <div class="container-custom">
-        <h2 style="font-size: 0.75rem; font-weight: 700; color: var(--color-navy); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem;">
-          Ajankohtaista
-        </h2>
-        <div class="blog-grid">
-          {latestPosts.map(post => (
+        {/* Featured card row (1 large + 1 normal) */}
+        {featured && (
+          <div class="blog-row-featured" style="display: grid; grid-template-columns: 1fr; gap: 1.875rem; margin-bottom: 1.875rem;">
             <BlogCard
-              title={post.data.title}
-              excerpt={post.data.excerpt}
-              date={post.data.date}
-              category={post.data.category}
-              slug={post.id}
+              title={featured.data.title}
+              excerpt={featured.data.excerpt}
+              date={featured.data.date}
+              category={featured.data.category}
+              slug={featured.id}
             />
-          ))}
-        </div>
+            {rest[0] && (
+              <BlogCard
+                title={rest[0].data.title}
+                excerpt={rest[0].data.excerpt}
+                date={rest[0].data.date}
+                category={rest[0].data.category}
+                slug={rest[0].id}
+              />
+            )}
+          </div>
+        )}
+        {/* Remaining cards row */}
+        {rest.length > 1 && (
+          <div class="blog-row-rest" style="display: grid; grid-template-columns: 1fr; gap: 1.875rem;">
+            {rest.slice(1).map(post => (
+              <BlogCard
+                title={post.data.title}
+                excerpt={post.data.excerpt}
+                date={post.data.date}
+                category={post.data.category}
+                slug={post.id}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )}
 
   <CTASection
-    title="LÄHDE MUKAAN tukijoukkoihin!"
+    titleBold="LÄHDE MUKAAN"
+    titleRegular="tukijoukkoihin!"
     bodyText="Voit osallistua kampanjaan monella tavalla — tule mukaan vapaaehtoiseksi, jaa viestiä tai tue kampanjaa."
-    ctaLabel="Lähde mukaan"
+    ctaLabel="Lähde mukaan!"
     ctaHref="/vapaaehtoiseksi"
   />
 </BaseLayout>
 
 <style>
-  .blog-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  @media (min-width: 640px) {
-    .blog-grid {
-      grid-template-columns: 1fr 1fr;
+  @media (min-width: 768px) {
+    .blog-row-featured {
+      grid-template-columns: 2fr 1fr !important;
+    }
+    .blog-row-rest {
+      grid-template-columns: 1fr 1fr !important;
     }
   }
 </style>
