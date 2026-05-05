@@ -20,12 +20,12 @@
 }
 
 /* Header height custom properties.
-   Transparent desktop: 266px logo (111px tall) + 2×1.5rem (24px) padding = 159px.
-   Mobile: 3rem logo + 2×0.75rem padding = 72px. */
+   Desktop (≥1280px): 266px logo (111px tall) + 2×1.5rem (24px) padding = 159px.
+   Mobile/tablet (<1280px): 3rem logo + 2×0.75rem padding = 72px. */
 :root {
   --header-h: 4.5rem;
 }
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   :root {
     --header-h: 9.9375rem;
   }

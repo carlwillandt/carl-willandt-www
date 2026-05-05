@@ -47,18 +47,19 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
             )}
             {item.title}
           </span>
-          <svg class="accordion-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--color-body-text); transition: transform 0.2s; flex-shrink: 0;">
+          <svg class="accordion-chevron" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--color-body-text); flex-shrink: 0;">
             <path d="m6 9 6 6 6-6"/>
           </svg>
         </button>
+        <!-- grid-template-rows animation wrapper -->
         <div
           id={`${groupId}-panel-${i}`}
           role="region"
           aria-labelledby={`${groupId}-btn-${i}`}
           class="accordion-panel"
-          style="display: none; padding: 0 1.875rem 1.875rem 1.875rem; color: var(--color-body-text); font-size: 1rem; line-height: 1.75;"
-          set:html={item.content}
-        />
+        >
+          <div class="accordion-panel-inner" set:html={item.content} />
+        </div>
       </div>
     ))}
   </div>
@@ -69,8 +70,35 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
     border-left-color: var(--color-green-brand) !important;
     background-color: var(--color-offwhite);
   }
+
+  .accordion-chevron {
+    transition: transform 0.28s ease;
+  }
   .accordion-chevron.rotated {
     transform: rotate(180deg);
+  }
+
+  /* Animate height via grid-template-rows: 0fr → 1fr */
+  .accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease, padding-bottom 0.28s ease;
+    padding: 0 1.875rem;
+    padding-bottom: 0;
+  }
+
+  .accordion-panel.is-open {
+    grid-template-rows: 1fr;
+    padding-bottom: 1.875rem;
+  }
+
+  /* Inner div must have min-height: 0 for the grid trick to work */
+  .accordion-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+    color: var(--color-body-text);
+    font-size: 1rem;
+    line-height: 1.75;
   }
 </style>
 
@@ -86,8 +114,7 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
           t.setAttribute('aria-expanded', 'false');
           const panelId = t.getAttribute('aria-controls');
           if (panelId) {
-            const panel = document.getElementById(panelId);
-            if (panel) panel.style.display = 'none';
+            document.getElementById(panelId)?.classList.remove('is-open');
           }
           t.querySelector('.accordion-chevron')?.classList.remove('rotated');
         });
@@ -95,8 +122,7 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
           trigger.setAttribute('aria-expanded', 'true');
           const panelId = trigger.getAttribute('aria-controls');
           if (panelId) {
-            const panel = document.getElementById(panelId);
-            if (panel) panel.style.display = 'block';
+            document.getElementById(panelId)?.classList.add('is-open');
           }
           trigger.querySelector('.accordion-chevron')?.classList.add('rotated');
         }
