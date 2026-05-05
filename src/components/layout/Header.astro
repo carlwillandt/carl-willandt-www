@@ -14,25 +14,25 @@ function isActive(href: string): boolean {
   return currentPath.startsWith(href);
 }
 ---
-<header style="background-color: var(--color-navy); position: sticky; top: 0; z-index: 50;">
-  <div class="container-custom" style="display: flex; align-items: center; justify-content: space-between; padding-top: 0; padding-bottom: 0;">
+<header class="site-header">
+  <div class="container-custom header-inner">
 
     <!-- Logo -->
-    <a href="/" aria-label="Carl Willandt — etusivu" style="flex-shrink: 0; text-decoration: none;">
-      <img src="/carl-willandt-logo.svg" alt="Carl Willandt" style="height: 3.5rem; display: block;" />
+    <a href="/" aria-label="Carl Willandt — etusivu" style="flex-shrink: 0; text-decoration: none; display: flex; align-items: center;">
+      <img src="/carl-willandt-logo.svg" alt="Carl Willandt" class="header-logo" />
     </a>
 
     <!-- Desktop nav -->
-    <nav class="desktop-nav" aria-label="Päänavigaatio" style="display: none; align-items: stretch; gap: 0;">
+    <nav class="desktop-nav" aria-label="Päänavigaatio">
       {navLinks.map(link => (
         <a
           href={link.href}
-          style={`display: flex; align-items: center; padding: 0 1.3125rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; text-decoration: none; color: var(--color-offwhite); white-space: nowrap; border-bottom: ${isActive(link.href) ? '4px solid var(--color-green-brand)' : '4px solid transparent'}; transition: border-color 0.2s; height: 100%;`}
+          class={`nav-link${isActive(link.href) ? ' nav-link--active' : ''}`}
         >
           {link.label}
         </a>
       ))}
-      <a href="/vapaaehtoiseksi" class="btn-primary" style="margin-left: 1.3125rem; align-self: center; font-size: 0.875rem;">
+      <a href="/vapaaehtoiseksi" class="btn-primary nav-cta">
         Lahjoitukset
       </a>
     </nav>
@@ -43,7 +43,6 @@ function isActive(href: string): boolean {
       aria-label="Avaa valikko"
       aria-expanded="false"
       aria-controls="mobile-menu"
-      style="background: none; border: none; cursor: pointer; padding: 0.5rem; color: var(--color-offwhite);"
       class="mobile-toggle"
     >
       <svg id="icon-hamburger" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -56,12 +55,12 @@ function isActive(href: string): boolean {
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" style="display: none; background-color: var(--color-navy-light); border-top: 1px solid rgba(255,255,255,0.08);">
-    <nav class="container-custom" aria-label="Mobiilinavigaatio" style="padding-top: 0.75rem; padding-bottom: 1rem; display: flex; flex-direction: column;">
+  <div id="mobile-menu" class="mobile-menu" style="display: none;">
+    <nav class="container-custom mobile-nav" aria-label="Mobiilinavigaatio">
       {navLinks.map(link => (
         <a
           href={link.href}
-          style={`color: var(--color-offwhite); font-weight: 600; font-size: 0.9375rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; border-left: ${isActive(link.href) ? '3px solid var(--color-green-brand)' : '3px solid transparent'}; padding-left: ${isActive(link.href) ? '0.75rem' : '0'};`}
+          class={`mobile-nav-link${isActive(link.href) ? ' mobile-nav-link--active' : ''}`}
         >
           {link.label}
         </a>
@@ -74,13 +73,107 @@ function isActive(href: string): boolean {
 </header>
 
 <style>
-  header .container-custom {
-    height: 4.5rem;
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--color-navy);
   }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 5rem;
+  }
+
+  .header-logo {
+    /* SVG is 267×111 — set height, width follows aspect ratio */
+    height: 3rem;
+    display: block;
+  }
+
+  /* Desktop nav */
+  .desktop-nav {
+    display: none;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0 1.3125rem;
+    font-size: 1rem;           /* matches Figma text-[16px] */
+    font-weight: 600;          /* SemiBold */
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-offwhite);
+    white-space: nowrap;
+    border-bottom: 4px solid transparent;
+    transition: border-color 0.15s;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .nav-link:hover {
+    border-bottom-color: rgba(78, 138, 91, 0.45);
+  }
+
+  .nav-link--active {
+    border-bottom-color: var(--color-green-brand);
+  }
+
+  .nav-cta {
+    align-self: center;
+    margin-left: 1.3125rem;
+    font-size: 0.875rem;
+  }
+
+  /* Mobile */
+  .mobile-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--color-offwhite);
+  }
+
+  .mobile-menu {
+    background-color: var(--color-navy-light);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .mobile-nav {
+    padding-top: 0.75rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-nav-link {
+    color: var(--color-offwhite);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: border-left-color 0.15s;
+  }
+
+  .mobile-nav-link--active {
+    border-left-color: var(--color-green-brand);
+    padding-left: 0.75rem;
+  }
+
   @media (min-width: 1024px) {
-    .desktop-nav { display: flex !important; height: 100%; }
+    .desktop-nav { display: flex !important; }
     .mobile-toggle { display: none !important; }
-    header .container-custom { height: 5rem; }
+    .header-logo { height: 3.5rem; }
+    .header-inner { height: 5.5rem; }
   }
 </style>
 
