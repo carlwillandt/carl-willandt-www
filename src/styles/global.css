@@ -19,12 +19,34 @@
   --font-family-sans: 'Barlow', system-ui, sans-serif;
 }
 
+/* Spacer that compensates for fixed header height */
+.header-space {
+  height: var(--header-h);
+  flex-shrink: 0;
+}
+
+/* Hero sections pull back up to overlap the spacer so the image fills from the top */
+.hero-pulls-up {
+  margin-top: calc(-1 * var(--header-h));
+}
+
 @layer base {
   body {
     font-family: var(--font-family-sans);
     background-color: var(--color-cream);
     color: var(--color-navy);
     -webkit-font-smoothing: antialiased;
+  }
+}
+
+:root {
+  --header-h: 4.5rem; /* mobile: 3rem logo + 2×0.75rem padding */
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* desktop: 266px logo → 111px tall + 2×0.75rem padding ≈ 135px */
+    --header-h: 8.4375rem;
   }
 }
 

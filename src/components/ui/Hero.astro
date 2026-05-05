@@ -23,7 +23,7 @@ const {
   short = false,
 } = Astro.props;
 ---
-<section style={`position: relative; background-color: var(--color-navy); min-height: ${short ? '26rem' : '70vh'}; display: flex; align-items: flex-end; overflow: hidden;`}>
+<section class="hero-pulls-up" style={`position: relative; background-color: var(--color-navy); min-height: ${short ? 'calc(var(--header-h) + 20rem)' : '70vh'}; display: flex; align-items: flex-end; overflow: hidden;`}>
   <!-- Background photo -->
   <div style="position: absolute; inset: 0;">
     <img
@@ -37,7 +37,7 @@ const {
   </div>
 
   <!-- Content -->
-  <div class="container-custom hero-content" style="position: relative; padding-top: 5rem; padding-bottom: 5rem; width: 100%;">
+  <div class="container-custom hero-content" style="position: relative; padding-top: calc(var(--header-h) + 2rem); padding-bottom: 5rem; width: 100%;">
     <div style="max-width: 40rem; display: flex; flex-direction: column; gap: 1.875rem;">
       {(titleBold || titleRegular) && (
         <div style="display: flex; flex-direction: column; line-height: 1; color: var(--color-offwhite);">
@@ -72,7 +72,7 @@ const {
 <style>
   @media (min-width: 768px) {
     .hero-content {
-      padding-top: 7rem;
+      padding-top: calc(var(--header-h) + 2.5rem);
       padding-bottom: 5.3125rem;
     }
     .kokoomus-logo-container {
