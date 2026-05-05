@@ -77,6 +77,11 @@ function isActive(href: string): boolean {
     position: sticky;
     top: 0;
     z-index: 50;
+    background-color: transparent;
+    transition: background-color 0.25s;
+  }
+
+  .site-header.scrolled {
     background-color: var(--color-navy);
   }
 
@@ -84,14 +89,14 @@ function isActive(href: string): boolean {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 
   .header-logo {
-    /* SVG is 267×111 — set height, width follows aspect ratio */
+    /* SVG is 267×111 */
     height: 3rem;
+    width: auto;
     display: block;
   }
 
@@ -172,8 +177,8 @@ function isActive(href: string): boolean {
   @media (min-width: 1024px) {
     .desktop-nav { display: flex !important; }
     .mobile-toggle { display: none !important; }
-    .header-logo { height: 3.5rem; }
-    .header-inner { height: 5.5rem; }
+    .header-logo { width: 266px; height: auto; }
+    .header-inner { padding-top: 0.75rem; padding-bottom: 0.75rem; }
   }
 </style>
 
@@ -189,4 +194,11 @@ function isActive(href: string): boolean {
     iconHamburger.style.display = isOpen ? 'block' : 'none';
     iconClose.style.display = isOpen ? 'none' : 'block';
   });
+
+  const header = document.querySelector('.site-header') as HTMLElement;
+  const onScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 </script>

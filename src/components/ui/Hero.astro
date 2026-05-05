@@ -8,6 +8,7 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   showKokoomusLogo?: boolean;
+  short?: boolean;
 }
 
 const {
@@ -19,9 +20,10 @@ const {
   ctaLabel,
   ctaHref,
   showKokoomusLogo = false,
+  short = false,
 } = Astro.props;
 ---
-<section style="position: relative; background-color: var(--color-navy); min-height: 70vh; display: flex; align-items: flex-end; overflow: hidden;">
+<section style={`position: relative; background-color: var(--color-navy); min-height: ${short ? '26rem' : '70vh'}; display: flex; align-items: flex-end; overflow: hidden;`}>
   <!-- Background photo -->
   <div style="position: absolute; inset: 0;">
     <img
