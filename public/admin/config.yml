@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: carlwillandt/carl-willandt-www
+  name: git-gateway
   branch: main
 
 media_folder: public/uploads
