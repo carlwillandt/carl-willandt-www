@@ -19,13 +19,27 @@
   --font-family-sans: 'Barlow', system-ui, sans-serif;
 }
 
-/* Spacer that compensates for fixed header height */
+/* Header height custom properties.
+   Transparent desktop: 266px logo (111px tall) + 2×1.5rem (24px) padding = 159px.
+   Mobile: 3rem logo + 2×0.75rem padding = 72px. */
+:root {
+  --header-h: 4.5rem;
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 9.9375rem;
+  }
+}
+
+/* Spacer compensates for the fixed header on non-hero pages.
+   Navy bg merges seamlessly with the navy first sections used on all non-hero pages. */
 .header-space {
   height: var(--header-h);
   flex-shrink: 0;
+  background-color: var(--color-navy);
 }
 
-/* Hero sections pull back up to overlap the spacer so the image fills from the top */
+/* Hero sections pull back up to cover the spacer so the image fills from the very top. */
 .hero-pulls-up {
   margin-top: calc(-1 * var(--header-h));
 }
@@ -36,17 +50,6 @@
     background-color: var(--color-cream);
     color: var(--color-navy);
     -webkit-font-smoothing: antialiased;
-  }
-}
-
-:root {
-  --header-h: 4.5rem; /* mobile: 3rem logo + 2×0.75rem padding */
-}
-
-@media (min-width: 1024px) {
-  :root {
-    /* desktop: 266px logo → 111px tall + 2×0.75rem padding ≈ 135px */
-    --header-h: 8.4375rem;
   }
 }
 
