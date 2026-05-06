@@ -3,6 +3,8 @@ backend:
   repo: carlwillandt/carl-willandt-www
   branch: main
 
+logo_url: /carl-willandt-logo-small.svg
+
 media_folder: public/uploads
 public_folder: /uploads
 
