@@ -3,55 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/ui/Hero.astro';
 import Accordion from '../components/ui/Accordion.astro';
 import type { AccordionItem } from '../components/ui/Accordion.astro';
+import { marked } from 'marked';
+import data from '../content/settings/carl.json';
 
-const accordionItems: AccordionItem[] = [
-  {
-    id: 'juurista',
-    title: 'Juurista',
-    icon: 'home',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-  {
-    id: 'oppimisesta',
-    title: 'Oppimisesta',
-    icon: 'book-open',
-    content: `<p>Koulupolkuni alkoi Kuokkolan kyläkoulussa, jota isäni ja vanhempani sisarukseinkin olivat käyneet.
-      Ala-asteen jälkeen opintie jatkui Häkkarin yläasteen englanninkielisellä luokalla ja Lempäälän lukiossa,
-      josta valmistuin ylioppilaaksi vuonna 2002.</p>
-      <p>Vuonna 2005 aloitin opintoini Tampereen yliopistossa. Valmistuin vuonna 2013 filosofian maisteriksi.</p>`,
-  },
-  {
-    id: 'kodista',
-    title: 'Kodista',
-    icon: 'home',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-  {
-    id: 'urheilusta',
-    title: 'Urheilusta',
-    icon: 'trophy',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-  {
-    id: 'metsastyksesta',
-    title: 'Metsästyksestä',
-    icon: 'tree-pine',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-  {
-    id: 'maanpuolustuksesta',
-    title: 'Maanpuolustuksesta',
-    icon: 'shield',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-];
+const accordionItems: AccordionItem[] = data.accordionItems.map(item => ({
+  ...item,
+  content: marked.parse(item.content) as string,
+}));
 ---
 <BaseLayout
   title="Carl"
   description="Tutustu Carl Willandtiin — perheenisä, filosofian maisteri ja viestintäpäällikkö Hämeenkyröstä."
 >
   <Hero
-    titleBold="CARL"
+    titleBold={data.heroTitleBold}
     imageSrc="/hero-carl.jpg"
     imageAlt="Carl Willandt"
     short={true}
@@ -61,12 +26,10 @@ const accordionItems: AccordionItem[] = [
     <div class="container-custom">
       <div style="max-width: 56rem; margin: 0 auto;">
       <p style="font-size: 1.3125rem; font-weight: 400; color: var(--color-navy); line-height: 1.75; margin-bottom: 2.5rem;">
-        Olen nelikymppinen perheenisä, filosofian maisteri ja viestintäpäällikkö Hämeenkyröstä,
-        jonka arki on varsin tyypillistä ruuhkavuosielämää, jota ohjaavat työ, perhe, vastuu ja huoli
-        tulevasta. Tällä sivulla pääset tutustumaan minuun tarkemmin.
+        {data.introParagraph}
       </p>
 
-      <Accordion items={accordionItems} sectionTitle="Elämäni eri osa-alueet" />
+      <Accordion items={accordionItems} sectionTitle={data.sectionTitle} />
       </div>
     </div>
   </section>

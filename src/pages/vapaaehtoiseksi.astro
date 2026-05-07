@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ui/ContactForm.astro';
+import data from '../content/settings/vapaaehtoiseksi.json';
 
 const fields = [
   { name: 'name', label: 'Nimi', type: 'text' as const, required: true, placeholder: 'Etunimi Sukunimi' },
@@ -26,14 +27,12 @@ const fields = [
     <div class="container-custom">
       <div class="volunteer-grid">
         <div>
-          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-navy);">Miksi liittyä tukijoukkoihin?</h2>
+          <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-navy);">{data.introTitle}</h2>
           <p style="color: var(--color-body-text); line-height: 1.75; margin-bottom: 1rem;">
-            Kampanjan menestys rakentuu ihmisten aktiivisuudesta. Voit osallistua monella tavalla:
-            jakamalla viestiä somessa, osallistumalla vaalitilaisuuksiin tai auttamalla
-            käytännön järjestelyissä.
+            {data.introParagraph1}
           </p>
           <p style="color: var(--color-body-text); line-height: 1.75;">
-            Täytä alla oleva lomake ja otamme sinuun yhteyttä sopivasta tavasta osallistua!
+            {data.introParagraph2}
           </p>
         </div>
         <div>

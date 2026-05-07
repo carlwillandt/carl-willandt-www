@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ui/ContactForm.astro';
+import data from '../content/settings/ota-yhteytta.json';
 
 const fields = [
   { name: 'name', label: 'Nimi', type: 'text' as const, required: true, placeholder: 'Etunimi Sukunimi' },
@@ -22,10 +23,13 @@ const fields = [
       <div class="contact-grid">
         <div>
           <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-navy);">Yhteystiedot</h2>
-          <a href="mailto:carl@willandt.fi"
+          <a href={`mailto:${data.email}`}
              style="display: block; font-size: 1.125rem; font-weight: 600; color: var(--color-green-brand); text-decoration: none; margin-bottom: 1.5rem;">
-            carl@willandt.fi
+            {data.email}
           </a>
+          {data.introText && (
+            <p style="color: var(--color-body-text); line-height: 1.75; margin-bottom: 1.5rem;">{data.introText}</p>
+          )}
           <div style="display: flex; gap: 1rem;">
             <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"
                style="color: var(--color-body-text); transition: color 0.2s; text-decoration: none;"

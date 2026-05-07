@@ -1,0 +1,43 @@
+{
+  "heroTitleBold": "CARL",
+  "introParagraph": "Olen nelikymppinen perheenisä, filosofian maisteri ja viestintäpäällikkö Hämeenkyröstä, jonka arki on varsin tyypillistä ruuhkavuosielämää, jota ohjaavat työ, perhe, vastuu ja huoli tulevasta. Tällä sivulla pääset tutustumaan minuun tarkemmin.",
+  "sectionTitle": "Elämäni eri osa-alueet",
+  "accordionItems": [
+    {
+      "id": "juurista",
+      "title": "Juurista",
+      "icon": "home",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    },
+    {
+      "id": "oppimisesta",
+      "title": "Oppimisesta",
+      "icon": "book-open",
+      "content": "Koulupolkuni alkoi Kuokkolan kyläkoulussa, jota isäni ja vanhempani sisarukseinkin olivat käyneet. Ala-asteen jälkeen opintie jatkui Häkkarin yläasteen englanninkielisellä luokalla ja Lempäälän lukiossa, josta valmistuin ylioppilaaksi vuonna 2002.\n\nVuonna 2005 aloitin opintoini Tampereen yliopistossa. Valmistuin vuonna 2013 filosofian maisteriksi."
+    },
+    {
+      "id": "kodista",
+      "title": "Kodista",
+      "icon": "home",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    },
+    {
+      "id": "urheilusta",
+      "title": "Urheilusta",
+      "icon": "trophy",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    },
+    {
+      "id": "metsastyksesta",
+      "title": "Metsästyksestä",
+      "icon": "tree-pine",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    },
+    {
+      "id": "maanpuolustuksesta",
+      "title": "Maanpuolustuksesta",
+      "icon": "shield",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    }
+  ]
+}

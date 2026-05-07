@@ -3,44 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/ui/Hero.astro';
 import Accordion from '../components/ui/Accordion.astro';
 import type { AccordionItem } from '../components/ui/Accordion.astro';
+import { marked } from 'marked';
+import data from '../content/settings/tavoitteeni.json';
 
-const accordionItems: AccordionItem[] = [
-  {
-    id: 'sivistys',
-    title: 'Sivistys on Suomen kivijalka',
-    icon: 'graduation-cap',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-  {
-    id: 'turvallisuus',
-    title: 'Turvallisuus syntyy taloudesta ja puolustuskyvystä',
-    icon: 'shield',
-    content: `<p>Turvallisuus koostuu useista asioista, mutta ennen kaikkea se syntyy kestävästä taloudesta
-      ja uskottavasta puolustuksesta. Reserviläisenä ja metsästäjänä turvallisuus ei ole minulle
-      ideologia, vaan velvollisuus.</p>
-      <h4>Keinot</h4>
-      <ul>
-        <li>Velkaantuminen kuriin ja talous nousuun. Kokoomuksen johdolla kaikkien vastuullisten
-        eduskuntapuolueiden kesken neuvoteltu velkajarru.</li>
-        <li>Omavaraisuus ja huoltovarmuus kunniaan. Suomen tulee olla kiertotalouden ja uusiutuvan
-        energian hyödyntämisen mallimaa.</li>
-        <li>Kansalaistaidot kuntoon. Suomen on puolustamisen arvoinen maa.</li>
-      </ul>`,
-  },
-  {
-    id: 'vapaus',
-    title: 'Vapaus ei ole ilman vastuuta',
-    icon: 'scale',
-    content: '<p>Sisältö päivitetään CMS:n kautta ennen julkaisua.</p>',
-  },
-];
+const accordionItems: AccordionItem[] = data.accordionItems.map(item => ({
+  ...item,
+  content: marked.parse(item.content) as string,
+}));
 ---
 <BaseLayout
   title="Tavoitteeni"
   description="Minulle kokoomuslaisuus tarkoittaa vastuullisuutta, sivistystä ja arvopohjaista realismia."
 >
   <Hero
-    titleBold="TAVOITTEENI"
+    titleBold={data.heroTitleBold}
     imageSrc="/hero-carl.jpg"
     imageAlt="Carl Willandt"
     short={true}
@@ -50,9 +26,7 @@ const accordionItems: AccordionItem[] = [
     <div class="container-custom">
       <div style="max-width: 56rem; margin: 0 auto;">
       <p style="font-size: 1.3125rem; font-weight: 400; color: var(--color-navy); line-height: 1.75; margin-bottom: 2.5rem;">
-        Minulle kokoomuslaisuus tarkoittaa vastuullisuutta, sivistystä ja arvopohjaista realismia.
-        Sivistys, turvallisuus ja vapaus ovat arvoja, joille pohjaan oman ajattelumaailmani ja
-        yhteiskuntakäsitykseni. Tällä sivulla avaan hieman, mitä nämä arvot minulle konkreettisesti merkitsevät.
+        {data.introParagraph}
       </p>
 
       <Accordion items={accordionItems} />

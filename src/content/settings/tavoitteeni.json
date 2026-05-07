@@ -1,0 +1,24 @@
+{
+  "heroTitleBold": "TAVOITTEENI",
+  "introParagraph": "Minulle kokoomuslaisuus tarkoittaa vastuullisuutta, sivistystä ja arvopohjaista realismia. Sivistys, turvallisuus ja vapaus ovat arvoja, joille pohjaan oman ajattelumaailmani ja yhteiskuntakäsitykseni. Tällä sivulla avaan hieman, mitä nämä arvot minulle konkreettisesti merkitsevät.",
+  "accordionItems": [
+    {
+      "id": "sivistys",
+      "title": "Sivistys on Suomen kivijalka",
+      "icon": "graduation-cap",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    },
+    {
+      "id": "turvallisuus",
+      "title": "Turvallisuus syntyy taloudesta ja puolustuskyvystä",
+      "icon": "shield",
+      "content": "Turvallisuus koostuu useista asioista, mutta ennen kaikkea se syntyy kestävästä taloudesta ja uskottavasta puolustuksesta. Reserviläisenä ja metsästäjänä turvallisuus ei ole minulle ideologia, vaan velvollisuus.\n\n#### Keinot\n\n- Velkaantuminen kuriin ja talous nousuun. Kokoomuksen johdolla kaikkien vastuullisten eduskuntapuolueiden kesken neuvoteltu velkajarru.\n- Omavaraisuus ja huoltovarmuus kunniaan. Suomen tulee olla kiertotalouden ja uusiutuvan energian hyödyntämisen mallimaa.\n- Kansalaistaidot kuntoon. Suomen on puolustamisen arvoinen maa."
+    },
+    {
+      "id": "vapaus",
+      "title": "Vapaus ei ole ilman vastuuta",
+      "icon": "scale",
+      "content": "Sisältö päivitetään CMS:n kautta ennen julkaisua."
+    }
+  ]
+}

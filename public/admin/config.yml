@@ -61,3 +61,69 @@ collections:
           - { label: "X / Twitter -profiili URL", name: socialX, widget: string }
           - { label: "Instagram-profiili URL", name: socialInstagram, widget: string }
           - { label: "Facebook-profiili URL", name: socialFacebook, widget: string }
+
+      - label: "Carl-sivu"
+        name: carl
+        file: src/content/settings/carl.json
+        fields:
+          - { label: "Hero-otsikko", name: heroTitleBold, widget: string }
+          - { label: "Johdantokappale", name: introParagraph, widget: text }
+          - { label: "Osion otsikko", name: sectionTitle, widget: string }
+          - label: "Accordion-osiot"
+            name: accordionItems
+            widget: list
+            fields:
+              - { label: "Tunniste (älä muuta)", name: id, widget: string }
+              - { label: "Otsikko", name: title, widget: string }
+              - label: "Ikoni"
+                name: icon
+                widget: select
+                options:
+                  - { label: "Koti", value: home }
+                  - { label: "Kirja", value: book-open }
+                  - { label: "Trophy", value: trophy }
+                  - { label: "Puu", value: tree-pine }
+                  - { label: "Kilpi", value: shield }
+                  - { label: "Lakki", value: graduation-cap }
+                  - { label: "Vaaka", value: scale }
+              - { label: "Sisältö", name: content, widget: markdown }
+
+      - label: "Tavoitteeni-sivu"
+        name: tavoitteeni
+        file: src/content/settings/tavoitteeni.json
+        fields:
+          - { label: "Hero-otsikko", name: heroTitleBold, widget: string }
+          - { label: "Johdantokappale", name: introParagraph, widget: text }
+          - label: "Accordion-osiot"
+            name: accordionItems
+            widget: list
+            fields:
+              - { label: "Tunniste (älä muuta)", name: id, widget: string }
+              - { label: "Otsikko", name: title, widget: string }
+              - label: "Ikoni"
+                name: icon
+                widget: select
+                options:
+                  - { label: "Koti", value: home }
+                  - { label: "Kirja", value: book-open }
+                  - { label: "Trophy", value: trophy }
+                  - { label: "Puu", value: tree-pine }
+                  - { label: "Kilpi", value: shield }
+                  - { label: "Lakki", value: graduation-cap }
+                  - { label: "Vaaka", value: scale }
+              - { label: "Sisältö", name: content, widget: markdown }
+
+      - label: "Yhteystiedot-sivu"
+        name: ota-yhteytta
+        file: src/content/settings/ota-yhteytta.json
+        fields:
+          - { label: "Sähköpostiosoite", name: email, widget: string }
+          - { label: "Lisäteksti (vapaaehtoinen)", name: introText, widget: text, required: false }
+
+      - label: "Tukijoukot-sivu"
+        name: vapaaehtoiseksi
+        file: src/content/settings/vapaaehtoiseksi.json
+        fields:
+          - { label: "Osion otsikko", name: introTitle, widget: string }
+          - { label: "Ensimmäinen kappale", name: introParagraph1, widget: text }
+          - { label: "Toinen kappale", name: introParagraph2, widget: text }
