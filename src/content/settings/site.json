@@ -1,13 +1,13 @@
 {
-  "heroTextBold": "SIVISTYSTÄ,",
-  "heroTextRegular": "realismia ja rohkeutta",
-  "heroBodyText": "Maailma muuttuu. Sitä muutetaan. Maailma kaipaa sivistystä ja turvallisuusrealismia juuri nyt enemmän kuin koskaan. Äänestä minua taistelemaan sivistyneen, turvallisen ja vapaan Suomen puolesta kevään 2027 eduskuntavaaleissa.",
   "announcementBannerText": "",
+  "socialInstagram": "https://instagram.com/carl.willandt",
   "announcementBannerLinkLabel": "Lue lisää",
-  "announcementBannerLinkHref": "",
-  "videoUrl": "",
+  "heroBodyText": "Yhteiskunta ei muutu. Sitä muutetaan. Suomi ja Pirkanmaa kaipaavat sivistynyttä turvallisuusrealismia juuri nyt enemmän kuin koskaan. Äänestä minut tekemään töitä sivistyneen, turvallisen ja kestävän Suomen puolesta kevään 2027 eduskuntavaaleissa.",
   "videoBodyText": "<p>Täällä esittelyteksti videosta ja Carlin taustasta. Carl päivittää tämän CMS:n kautta.</p>",
-  "socialX": "https://twitter.com/",
-  "socialInstagram": "https://instagram.com/",
-  "socialFacebook": "https://facebook.com/"
+  "socialX": "https://x.com/carlwillandt",
+  "heroTextBold": "SIVISTYSTÄ,",
+  "socialFacebook": "https://www.facebook.com/p/Carl-Willandt-61570290832156/",
+  "videoUrl": "",
+  "heroTextRegular": "realismia ja rohkeutta",
+  "announcementBannerLinkHref": ""
 }
