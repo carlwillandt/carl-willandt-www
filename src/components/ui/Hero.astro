@@ -6,6 +6,7 @@ interface Props {
   imageSrc?: string;
   imageSrcs?: string[];
   imageAlt: string;
+  imagePosition?: string;
   ctaLabel?: string;
   ctaHref?: string;
   showKokoomusLogo?: boolean;
@@ -19,6 +20,7 @@ const {
   imageSrc,
   imageSrcs,
   imageAlt,
+  imagePosition = '50% 50%',
   ctaLabel,
   ctaHref,
   showKokoomusLogo = false,
@@ -28,22 +30,23 @@ const {
 const slides = imageSrcs && imageSrcs.length > 1 ? imageSrcs : (imageSrc ? [imageSrc] : []);
 const isSlideshow = slides.length > 1;
 
-// Crossfade timing
-const hold = 7;  // seconds fully visible
-const fade = 2;  // crossfade duration
+// Crossfade timing: image 1 (top layer) fades out → image 2 (bottom layer, always visible) shows
+const hold = 7;   // seconds fully visible
+const fade = 2;   // crossfade duration
 const total = (hold + fade) * slides.length;
-const pHoldEnd = +((hold / total) * 100).toFixed(3);
-const pFadeEnd = +(((hold + fade) / total) * 100).toFixed(3);
+const pHoldEnd  = +((hold / total) * 100).toFixed(3);
+const pFadeEnd  = +(((hold + fade) / total) * 100).toFixed(3);
+const pBackStart = +((( total - fade) / total) * 100).toFixed(3);
 ---
 
 {isSlideshow && (
   <style set:html={`
     @keyframes heroFade {
-      0%          { opacity: 1; }
-      ${pHoldEnd}% { opacity: 1; }
-      ${pFadeEnd}% { opacity: 0; }
-      99%         { opacity: 0; }
-      100%        { opacity: 1; }
+      0%              { opacity: 1; }
+      ${pHoldEnd}%    { opacity: 1; }
+      ${pFadeEnd}%    { opacity: 0; }
+      ${pBackStart}%  { opacity: 0; }
+      100%            { opacity: 1; }
     }
   `} />
 )}
@@ -56,18 +59,18 @@ const pFadeEnd = +(((hold + fade) / total) * 100).toFixed(3);
         src={src}
         alt={i === 0 ? imageAlt : ''}
         style={isSlideshow
-          ? `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; animation: heroFade ${total}s ${i * (hold + fade)}s infinite;`
-          : 'width: 100%; height: 100%; object-fit: cover; object-position: center top;'}
+          ? `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: ${imagePosition}; z-index: ${slides.length - i};${i === 0 ? ` animation: heroFade ${total}s ease-in-out infinite;` : ' opacity: 1;'}`
+          : `width: 100%; height: 100%; object-fit: cover; object-position: ${imagePosition};`}
         loading={i === 0 ? 'eager' : 'lazy'}
         aria-hidden={i > 0 ? 'true' : undefined}
       />
     ))}
-    <div style="position: absolute; inset: 0; background-color: var(--color-navy); mix-blend-mode: color;"></div>
-    <div style="position: absolute; inset: 0; background: linear-gradient(to right, var(--color-navy) 0%, rgba(13,27,42,0) 100%);"></div>
+    <!-- Gradient only — no colour overlay so images show naturally -->
+    <div style="position: absolute; inset: 0; z-index: 10; background: linear-gradient(to right, rgba(13,27,42,0.75) 0%, rgba(13,27,42,0.2) 60%, rgba(13,27,42,0) 100%);"></div>
   </div>
 
   <!-- Content -->
-  <div class="container-custom hero-content" style="position: relative; padding-top: calc(var(--header-h) + 2rem); padding-bottom: 5rem; width: 100%;">
+  <div class="container-custom hero-content" style="position: relative; z-index: 20; padding-top: calc(var(--header-h) + 2rem); padding-bottom: 5rem; width: 100%;">
     <div style="max-width: 40rem; display: flex; flex-direction: column; gap: 1.875rem;">
       {(titleBold || titleRegular) && (
         <div style="display: flex; flex-direction: column; line-height: 1; color: var(--color-offwhite);">
@@ -92,7 +95,7 @@ const pFadeEnd = +(((hold + fade) / total) * 100).toFixed(3);
     </div>
 
     {showKokoomusLogo && (
-      <div class="kokoomus-logo-container" style="display: none; position: absolute; bottom: 5rem; right: 5.3125rem;">
+      <div class="kokoomus-logo-container" style="display: none; position: absolute; bottom: 5rem; right: 5.3125rem; z-index: 20;">
         <img src="/kokoomus-logo.png" alt="Kokoomus" style="height: 1.625rem; opacity: 0.85;" />
       </div>
     )}
