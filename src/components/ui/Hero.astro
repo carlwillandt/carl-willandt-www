@@ -3,7 +3,8 @@ interface Props {
   titleBold?: string;
   titleRegular?: string;
   bodyText?: string;
-  imageSrc: string;
+  imageSrc?: string;
+  imageSrcs?: string[];
   imageAlt: string;
   ctaLabel?: string;
   ctaHref?: string;
@@ -16,22 +17,51 @@ const {
   titleRegular,
   bodyText,
   imageSrc,
+  imageSrcs,
   imageAlt,
   ctaLabel,
   ctaHref,
   showKokoomusLogo = false,
   short = false,
 } = Astro.props;
+
+const slides = imageSrcs && imageSrcs.length > 1 ? imageSrcs : (imageSrc ? [imageSrc] : []);
+const isSlideshow = slides.length > 1;
+
+// Crossfade timing
+const hold = 7;  // seconds fully visible
+const fade = 2;  // crossfade duration
+const total = (hold + fade) * slides.length;
+const pHoldEnd = +((hold / total) * 100).toFixed(3);
+const pFadeEnd = +(((hold + fade) / total) * 100).toFixed(3);
 ---
+
+{isSlideshow && (
+  <style set:html={`
+    @keyframes heroFade {
+      0%          { opacity: 1; }
+      ${pHoldEnd}% { opacity: 1; }
+      ${pFadeEnd}% { opacity: 0; }
+      99%         { opacity: 0; }
+      100%        { opacity: 1; }
+    }
+  `} />
+)}
+
 <section class="hero-pulls-up" style={`position: relative; background-color: var(--color-navy); min-height: ${short ? 'calc(var(--header-h) + 20rem)' : '70vh'}; display: flex; align-items: flex-end; overflow: hidden;`}>
-  <!-- Background photo -->
+  <!-- Background photo(s) -->
   <div style="position: absolute; inset: 0;">
-    <img
-      src={imageSrc}
-      alt={imageAlt}
-      style="width: 100%; height: 100%; object-fit: cover; object-position: center top;"
-      loading="eager"
-    />
+    {slides.map((src, i) => (
+      <img
+        src={src}
+        alt={i === 0 ? imageAlt : ''}
+        style={isSlideshow
+          ? `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; animation: heroFade ${total}s ${i * (hold + fade)}s infinite;`
+          : 'width: 100%; height: 100%; object-fit: cover; object-position: center top;'}
+        loading={i === 0 ? 'eager' : 'lazy'}
+        aria-hidden={i > 0 ? 'true' : undefined}
+      />
+    ))}
     <div style="position: absolute; inset: 0; background-color: var(--color-navy); mix-blend-mode: color;"></div>
     <div style="position: absolute; inset: 0; background: linear-gradient(to right, var(--color-navy) 0%, rgba(13,27,42,0) 100%);"></div>
   </div>
