@@ -103,7 +103,8 @@ const groupId = `acc-${Math.random().toString(36).slice(2, 7)}`;
 
   .accordion-panel-inner :global(p) { margin-bottom: 1rem; }
   .accordion-panel-inner :global(p:last-child) { margin-bottom: 0; }
-  .accordion-panel-inner :global(ul), .accordion-panel-inner :global(ol) { margin-bottom: 1rem; padding-left: 1.5rem; }
+  .accordion-panel-inner :global(ul) { list-style-type: disc; margin-bottom: 1rem; padding-left: 1.5rem; }
+  .accordion-panel-inner :global(ol) { list-style-type: decimal; margin-bottom: 1rem; padding-left: 1.5rem; }
   .accordion-panel-inner :global(li) { margin-bottom: 0.375rem; }
   .accordion-panel-inner :global(strong) { font-weight: 600; color: var(--color-navy); }
 </style>

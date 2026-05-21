@@ -75,7 +75,8 @@ const formattedDate = post.data.date.toLocaleDateString('fi-FI', {
   .article-body :global(p) { margin-bottom: 1.25rem; }
   .article-body :global(h2) { font-size: 1.625rem; font-weight: 700; margin: 2.5rem 0 1rem; color: var(--color-navy); }
   .article-body :global(h3) { font-size: 1.25rem; font-weight: 700; margin: 2rem 0 0.75rem; color: var(--color-navy); }
-  .article-body :global(ul), .article-body :global(ol) { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+  .article-body :global(ul) { list-style-type: disc; margin-bottom: 1.5rem; padding-left: 1.5rem; }
+  .article-body :global(ol) { list-style-type: decimal; margin-bottom: 1.5rem; padding-left: 1.5rem; }
   .article-body :global(li) { margin-bottom: 0.5rem; }
   .article-body :global(a) { color: var(--color-green-brand); text-decoration: underline; }
   .article-body :global(strong) { font-weight: 700; }
