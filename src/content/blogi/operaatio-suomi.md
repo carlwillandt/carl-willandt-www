@@ -1,6 +1,6 @@
 ---
 title: Operaatio Suomi
-date: 2026-05-21T18:00:00.000+03:00
+date: 2026-05-21T16:21:00.000+03:00
 category: Eduskuntavaalit
 excerpt: "Jotta Suomi voi tulevaisuudessakin olla maailman onnellisin maa ja
   kansainvälisesti tunnustettu edelläkävijä, meidän pitää kyetä tekemään
