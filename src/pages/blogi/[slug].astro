@@ -19,7 +19,7 @@ const formattedDate = post.data.date.toLocaleDateString('fi-FI', {
   year: 'numeric',
 });
 ---
-<BaseLayout title={post.data.title} description={post.data.excerpt}>
+<BaseLayout title={post.data.title} description={post.data.excerpt} ogType="article">
   <!-- Page header: navy, integrates with sticky nav -->
   <section style="background-color: var(--color-navy); padding-bottom: 3.125rem;">
     <div class="container-custom" style="padding-top: 1.25rem; border-top: 1px solid rgba(253,252,251,0.15);">
