@@ -11,9 +11,15 @@ interface Props {
   formName: string;
   fields: FormField[];
   submitLabel?: string;
+  successMessage?: string;
 }
 
-const { formName, fields, submitLabel = 'Lähetä' } = Astro.props;
+const {
+  formName,
+  fields,
+  submitLabel = 'Lähetä',
+  successMessage = 'Kiitos viestistäsi! Otan sinuun yhteyttä pian.',
+} = Astro.props;
 
 const inputStyle =
   'width: 100%; border: 1px solid rgba(13,27,42,0.15); border-radius: 0.5rem; ' +
@@ -22,54 +28,99 @@ const inputStyle =
   'font-family: inherit; box-sizing: border-box; outline: none; ' +
   'transition: border-color 0.2s;';
 ---
-<form
-  name={formName}
-  method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
-  style="display: flex; flex-direction: column; gap: 1.25rem;"
->
-  <input type="hidden" name="form-name" value={formName} />
-  <p style="display: none;" aria-hidden="true">
-    <label>Jätä tyhjäksi: <input name="bot-field" /></label>
-  </p>
+<div data-form-wrapper>
+  <form
+    name={formName}
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    style="display: flex; flex-direction: column; gap: 1.25rem;"
+  >
+    <input type="hidden" name="form-name" value={formName} />
+    <p style="display: none;" aria-hidden="true">
+      <label>Jätä tyhjäksi: <input name="bot-field" /></label>
+    </p>
 
-  {fields.map(field => (
-    <div>
-      <label
-        for={`${formName}-${field.name}`}
-        style="display: block; font-size: 0.875rem; font-weight: 600; color: var(--color-navy); margin-bottom: 0.25rem;"
-      >
-        {field.label}
-        {field.required && (
-          <span style="color: #ef4444; margin-left: 0.25rem;" aria-hidden="true">*</span>
+    {fields.map(field => (
+      <div>
+        <label
+          for={`${formName}-${field.name}`}
+          style="display: block; font-size: 0.875rem; font-weight: 600; color: var(--color-navy); margin-bottom: 0.25rem;"
+        >
+          {field.label}
+          {field.required && (
+            <span style="color: #ef4444; margin-left: 0.25rem;" aria-hidden="true">*</span>
+          )}
+        </label>
+        {field.type === 'textarea' ? (
+          <textarea
+            id={`${formName}-${field.name}`}
+            name={field.name}
+            rows={5}
+            required={field.required ?? false}
+            placeholder={field.placeholder ?? ''}
+            style={inputStyle}
+          />
+        ) : (
+          <input
+            id={`${formName}-${field.name}`}
+            type={field.type}
+            name={field.name}
+            required={field.required ?? false}
+            placeholder={field.placeholder ?? ''}
+            style={inputStyle}
+          />
         )}
-      </label>
-      {field.type === 'textarea' ? (
-        <textarea
-          id={`${formName}-${field.name}`}
-          name={field.name}
-          rows={5}
-          required={field.required ?? false}
-          placeholder={field.placeholder ?? ''}
-          style={inputStyle}
-        />
-      ) : (
-        <input
-          id={`${formName}-${field.name}`}
-          type={field.type}
-          name={field.name}
-          required={field.required ?? false}
-          placeholder={field.placeholder ?? ''}
-          style={inputStyle}
-        />
-      )}
-    </div>
-  ))}
+      </div>
+    ))}
 
-  <div>
-    <button type="submit" class="btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
-      {submitLabel}
-    </button>
+    <div>
+      <button type="submit" class="btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+        {submitLabel}
+      </button>
+    </div>
+  </form>
+
+  <div data-form-success style="display: none; padding: 2rem; border-radius: 0.75rem; background-color: var(--color-offwhite); border: 1px solid rgba(78,138,91,0.3);">
+    <div style="display: flex; align-items: flex-start; gap: 1rem;">
+      <svg width="24" height="24" fill="none" stroke="var(--color-green-brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="flex-shrink: 0; margin-top: 0.125rem;" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <path d="m9 11 3 3L22 4"/>
+      </svg>
+      <div>
+        <p style="font-weight: 700; color: var(--color-navy); margin: 0 0 0.25rem;">{successMessage}</p>
+      </div>
+    </div>
   </div>
-</form>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-form-wrapper]').forEach(wrapper => {
+    const form = wrapper.querySelector('form');
+    const success = wrapper.querySelector<HTMLElement>('[data-form-success]');
+    if (!form || !success) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Lähetetään…';
+      }
+      try {
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form) as any).toString(),
+        });
+        form.style.display = 'none';
+        success.style.display = 'block';
+      } catch {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtn.getAttribute('data-label') ?? 'Lähetä';
+        }
+      }
+    });
+  });
+</script>
