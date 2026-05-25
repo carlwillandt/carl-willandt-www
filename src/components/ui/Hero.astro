@@ -65,6 +65,7 @@ const pBackStart = +((( total - fade) / total) * 100).toFixed(3);
           ? `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: ${imagePosition}; z-index: ${slides.length - i};${i === 0 ? ` animation: heroFade ${total}s ease-in-out infinite;` : ' opacity: 1;'}`
           : `width: 100%; height: 100%; object-fit: cover; object-position: ${imagePosition};`}
         loading={i === 0 ? 'eager' : 'lazy'}
+        fetchpriority={i === 0 ? 'high' : undefined}
         aria-hidden={i > 0 ? 'true' : undefined}
       />
     ))}
