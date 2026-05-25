@@ -2,8 +2,10 @@
 interface Props {
   videoUrl?: string;
   bodyHtml: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 }
-const { videoUrl, bodyHtml } = Astro.props;
+const { videoUrl, bodyHtml, ctaLabel, ctaHref } = Astro.props;
 ---
 <section style="padding: 4rem 0; background-color: var(--color-cream);">
   <div class="container-custom video-grid">
@@ -26,7 +28,14 @@ const { videoUrl, bodyHtml } = Astro.props;
         </div>
       )}
     </div>
-    <div class="video-text" set:html={bodyHtml} />
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <div class="video-text" set:html={bodyHtml} />
+      {ctaLabel && ctaHref && (
+        <div>
+          <a href={ctaHref} class="btn-primary">{ctaLabel}</a>
+        </div>
+      )}
+    </div>
   </div>
 </section>
 

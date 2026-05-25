@@ -24,8 +24,6 @@ const [featured, ...rest] = latestPosts;
     imagePosition="50% 25%"
     showKokoomusLogo={true}
     bodyText={siteSettings.heroBodyText}
-    ctaLabel="Lue lisää"
-    ctaHref="/carl"
   />
 
   {siteSettings.announcementBannerText && (
@@ -39,6 +37,8 @@ const [featured, ...rest] = latestPosts;
   <VideoSection
     videoUrl={siteSettings.videoUrl || undefined}
     bodyHtml={siteSettings.videoBodyText}
+    ctaLabel="Lue lisää"
+    ctaHref="/carl"
   />
 
   {latestPosts.length > 0 && (
