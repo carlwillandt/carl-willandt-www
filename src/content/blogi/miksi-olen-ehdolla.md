@@ -1,5 +1,5 @@
 ---
-title: Miksi olen ehdolla?
+title: Ajatuksia Suomesta ja suomalaisuudesta
 date: 2026-05-21T16:22:00.000+03:00
 category: Eduskuntavaalit
 excerpt: Suomalaisuus on ollut tärkeä osa identiteettiäni lapsesta saakka ja
