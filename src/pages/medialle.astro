@@ -41,8 +41,44 @@ const sorted = pressReleases.sort((a, b) => b.data.date.valueOf() - a.data.date.
       </div>
 
       <div style="border-top: 1px solid rgba(13,27,42,0.1); padding-top: 2.5rem;">
-        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-navy);">Kuvapankki</h2>
-        <p style="color: var(--color-body-text);">Ladattavat kuvat lisätään ennen sivuston julkaisua.</p>
+        <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--color-navy);">Kuvapankki</h2>
+        <p style="color: var(--color-body-text); margin-bottom: 1.75rem;">
+          Korkearesoluutioiset kuvat lehdistön ja median käyttöön. Kuvat on vapaasti käytettävissä toimituksellisessa tarkoituksessa lähdemerkinnällä.
+        </p>
+        <div class="media-grid">
+          {[
+            { file: 'CarlWillandt-4814', size: '29 Mt', orientation: 'portrait' },
+            { file: 'CarlWillandt-4816', size: '28 Mt', orientation: 'portrait' },
+            { file: 'CarlWillandt-4859', size: '29 Mt', orientation: 'portrait' },
+            { file: 'CarlWillandt-4897', size: '31 Mt', orientation: 'landscape' },
+            { file: 'CarlWillandt-4948', size: '38 Mt', orientation: 'landscape' },
+            { file: 'CarlWillandt-4991', size: '46 Mt', orientation: 'landscape' },
+          ].map((img, i) => (
+            <div class="media-card">
+              <div class={`media-thumb ${img.orientation}`}>
+                <img
+                  src={`/medialle/thumbs/${img.file}.webp`}
+                  alt={`Carl Willandt — mediatiedoston esikatselu ${i + 1}`}
+                  loading="lazy"
+                  style="width: 100%; height: 100%; object-fit: cover; display: block;"
+                />
+              </div>
+              <div style="padding: 0.75rem 0 0.25rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;">
+                <span style="font-size: 0.8125rem; color: var(--color-body-text);">JPG · {img.size} · 300 dpi</span>
+                <a
+                  href={`/medialle/${img.file}.jpg`}
+                  download
+                  style="display: inline-flex; align-items: center; gap: 0.3125rem; font-size: 0.8125rem; font-weight: 600; color: var(--color-green-brand); text-decoration: none; white-space: nowrap;"
+                >
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                  Lataa
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div style="border-top: 1px solid rgba(13,27,42,0.1); padding-top: 2.5rem;">
@@ -57,3 +93,22 @@ const sorted = pressReleases.sort((a, b) => b.data.date.valueOf() - a.data.date.
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .media-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .media-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .media-card { display: flex; flex-direction: column; }
+  .media-thumb {
+    overflow: hidden;
+    border-radius: 0.375rem;
+    background-color: var(--color-navy);
+  }
+  .media-thumb.portrait  { aspect-ratio: 2 / 3; }
+  .media-thumb.landscape { aspect-ratio: 3 / 2; }
+</style>
