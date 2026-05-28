@@ -17,19 +17,15 @@ const { titleBold, titleRegular, bodyText, ctaLabel, ctaHref } = Astro.props;
         <div style="position: absolute; inset: 0; background-color: var(--color-cta-gold);"></div>
       </div>
 
-      <div class="cta-grid" style="position: relative; display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">
-        <!-- Left: Title -->
-        <div style="display: flex; flex-direction: column; line-height: 1; color: var(--color-offwhite);">
-          <p style="font-weight: 800; font-size: clamp(2rem, 5vw, 3.5rem); text-transform: uppercase; margin: 0;">{titleBold}</p>
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem;">
+        <div style="display: flex; flex-direction: column; line-height: 1.1; color: var(--color-offwhite);">
+          <p style="font-weight: 500; font-size: clamp(2rem, 5vw, 3.5rem); margin: 0;">{titleBold}</p>
           <p style="font-weight: 400; font-size: clamp(1.625rem, 4vw, 2.875rem); margin: 0;">{titleRegular}</p>
         </div>
-        <!-- Right: body + button -->
-        <div style="display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start;">
-          {bodyText && (
-            <p style="color: var(--color-footer-text); font-weight: 500; font-size: 1.125rem; line-height: 1.75; margin: 0;">{bodyText}</p>
-          )}
-          <a href={ctaHref} class="btn-outline">{ctaLabel}</a>
-        </div>
+        {bodyText && (
+          <p style="color: var(--color-footer-text); font-weight: 500; font-size: 1.125rem; line-height: 1.75; margin: 0; max-width: 36rem;">{bodyText}</p>
+        )}
+        <a href={ctaHref} class="btn-outline">{ctaLabel}</a>
       </div>
     </div>
   </div>
@@ -37,12 +33,8 @@ const { titleBold, titleRegular, bodyText, ctaLabel, ctaHref } = Astro.props;
 
 <style>
   @media (min-width: 768px) {
-    .cta-grid {
-      grid-template-columns: 1fr 1fr !important;
-      gap: 3rem !important;
-    }
     .cta-box {
-      padding: 1.875rem 2.5rem !important;
+      padding: 3rem 2.5rem !important;
     }
   }
 </style>
