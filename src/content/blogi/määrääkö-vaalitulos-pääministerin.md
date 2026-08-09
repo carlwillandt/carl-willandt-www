@@ -8,7 +8,7 @@ draft: false
 ---
 Sosiaali- ja terveysministeri **Wille Rydman** (ps) kohahdutti mediaa ja osaa poliitikoista torstaina [maalailemalla viestipalvelu X:ssä ajatusta](https://x.com/willerydman/status/2085224501789208618) siitä, että mikäli SDP voittaisi vaalit ja perussuomalaiset tulisi toiseksi, voitaisiin SDP sivuuttaa hallitusta muodostettaessa ja pistää sen sijaan perussuomalaisten johdolla pystyyn keskustaoikeistolainen enemmistöhallitus.
 
-Suomessa on pitkät perinteet siitä, että eduskuntavaalien voittajapuolue nousee hallituksen johtoon, mutta täysin uusi asia tästä perinteestä poikkeaminen ei olisi. Vuonna 1987 pääministeripuolueeksi nousi **Harri Holkerin** johtama kokoomus, silloin(kin?) SDP:n vaalivoitosta huolimatta.
+Suomessa on pitkät perinteet siitä, että eduskuntavaalien voittajapuolue nousee hallituksen johtoon, mutta täysin uusi asia tästä perinteestä poikkeaminen ei olisi. Vuonna 1987 muodostettua, maamme ensimmäistä sinipunahallitusta johti pääministerinä kokoomuksen **Harri Holkeri**,SDP:n vaalivoitosta huolimatta.
 
 Eduskuntavaalien jälkeen hallituksen muodostaminen käynnistyy eduskunnan järjestäytymisen ja valtiopäivien avajaisten jälkeen, kun vaaleissa eniten kansanedustajia saaneen eduskuntaryhmän edustaja kutsuu muiden ryhmien edustajat neuvotteluun, jossa sovitaan hallitusneuvottelujen tunnusteluvaiheen vetäjästä. Tässä vaiheessa vetäjäksi tyypillisesti valitaan suurimman ryhmän edustaja, mutta periaatteessa eduskuntaryhmät voivat sopia myös toisin.
 
