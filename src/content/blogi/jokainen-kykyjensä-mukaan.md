@@ -1,7 +1,7 @@
 ---
 title: Jokainen kykyjensä mukaan
 date: 2026-08-11T15:37:00.000+03:00
-category: Peruskoulut, Liikunta
+category: Peruskoulu, Liikunta
 excerpt: Kaikkien oppiaineiden – myös liikunnan – arvioinnin tulee perustua
   osaamiseen, ei asenteeseen.
 draft: false
