@@ -1,7 +1,7 @@
 ---
 title: Lapsemme ansaitsevat mobiilivapaan peruskoulun
 date: 2026-08-22T20:02:00.000+03:00
-category: Koulutus, Hämeenkyrö
+category: Peruskoulu, Hämeenkyrö
 excerpt: Koko peruskoulun kattava kännykkäkielto ei ole rangaistus, vaan
   palvelus, jolla on merkittäviä etuja lasten ja nuorten kehityksen ja
   hyvinvoinnin kannalta.
