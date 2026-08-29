@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/ui/Hero.astro';
+import VideoSection from '../components/ui/VideoSection.astro';
+import Accordion from '../components/ui/Accordion.astro';
+import type { AccordionItem } from '../components/ui/Accordion.astro';
+import CTASection from '../components/ui/CTASection.astro';
+import { marked } from 'marked';
+import data from '../content/settings/en.json';
+
+const accordionItems: AccordionItem[] = data.accordionItems.map(item => ({
+  ...item,
+  content: marked.parse(item.content) as string,
+}));
+
+const introHtml = marked.parse(data.introBodyText) as string;
+const ctaBodyHtml = marked.parse(data.ctaBodyText) as string;
+---
+<BaseLayout
+  title={data.metaTitle}
+  description={data.metaDescription}
+  lang="en"
+  hasTranslation={true}
+>
+  <Hero
+    titleBold={data.heroTextBold}
+    titleRegular={data.heroTextRegular}
+    imageSrcs={["/hero-1.webp", "/hero-2.webp"]}
+    imageAlt="Carl Willandt"
+    imagePosition="65% 25%"
+    imagePositionDesktop="50% 25%"
+    showKokoomusLogo={true}
+    bodyText={data.heroBodyText}
+  />
+
+  <VideoSection
+    bodyHtml={introHtml}
+    imageSrc="/en-carl-uno.webp"
+    imageAlt="Carl Willandt with his German Shorthaired Pointer Uno in the forest"
+    imagePosition="50% 50%"
+    mediaAspect="3/2"
+  />
+
+  <section style="padding: 0 0 4rem; background-color: var(--color-cream);">
+    <div class="container-custom">
+      <div style="max-width: 56rem; margin: 0 auto;">
+        <h2 style="font-size: 1.625rem; font-weight: 700; color: var(--color-navy); line-height: 1.3; margin: 0 0 1rem;">
+          {data.prioritiesTitle}
+        </h2>
+        <p style="font-size: 1.3125rem; font-weight: 400; color: var(--color-navy); line-height: 1.75; margin-bottom: 2.5rem;">
+          {data.prioritiesIntro}
+        </p>
+
+        <Accordion items={accordionItems} />
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    titleBold={data.ctaTitleBold}
+    titleRegular={data.ctaTitleRegular}
+    bodyHtml={ctaBodyHtml}
+    ctaLabel={data.ctaLabel}
+    ctaHref={data.ctaHref}
+  />
+</BaseLayout>

@@ -3,10 +3,11 @@ interface Props {
   titleBold: string;
   titleRegular: string;
   bodyText?: string;
+  bodyHtml?: string;
   ctaLabel: string;
   ctaHref: string;
 }
-const { titleBold, titleRegular, bodyText, ctaLabel, ctaHref } = Astro.props;
+const { titleBold, titleRegular, bodyText, bodyHtml, ctaLabel, ctaHref } = Astro.props;
 ---
 <section style="padding: 4rem 0; background-color: var(--color-cream);">
   <div class="container-custom">
@@ -25,7 +26,9 @@ const { titleBold, titleRegular, bodyText, ctaLabel, ctaHref } = Astro.props;
         </div>
         <!-- Right: body + button -->
         <div style="display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start;">
-          {bodyText && (
+          {bodyHtml ? (
+            <div class="cta-body" set:html={bodyHtml} />
+          ) : bodyText && (
             <p style="color: var(--color-footer-text); font-weight: 500; font-size: 1.125rem; line-height: 1.75; margin: 0;">{bodyText}</p>
           )}
           <a href={ctaHref} class="btn-outline">{ctaLabel}</a>
@@ -36,6 +39,15 @@ const { titleBold, titleRegular, bodyText, ctaLabel, ctaHref } = Astro.props;
 </section>
 
 <style>
+  .cta-body {
+    color: var(--color-footer-text);
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  .cta-body :global(p) { margin: 0; }
+  .cta-body :global(p + p) { margin-top: 0.75rem; }
+  .cta-body :global(strong) { font-weight: 700; color: var(--color-offwhite); }
   @media (min-width: 768px) {
     .cta-grid {
       grid-template-columns: 1fr 1fr !important;

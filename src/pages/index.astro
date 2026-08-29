@@ -15,7 +15,7 @@ const latestPosts = allPosts
 
 const [featured, ...rest] = latestPosts;
 ---
-<BaseLayout title="Etusivu" description={siteSettings.heroBodyText}>
+<BaseLayout title="Etusivu" description={siteSettings.heroBodyText} hasTranslation={true}>
   <Hero
     titleBold={siteSettings.heroTextBold}
     titleRegular={siteSettings.heroTextRegular}

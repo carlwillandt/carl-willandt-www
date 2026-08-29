@@ -1,0 +1,41 @@
+{
+  "metaTitle": "Carl Willandt — Candidate for the Finnish Parliament 2027",
+  "metaDescription": "Carl Willandt is a National Coalition Party candidate from Pirkanmaa in Finland’s 2027 parliamentary elections. Education, realism, and courage.",
+  "heroTextBold": "EDUCATION.",
+  "heroTextRegular": "Realism. Courage.",
+  "heroBodyText": "Society does not simply change, it is shaped by those willing to act. Finland needs a collaborative bridge-builder, and Pirkanmaa needs a strong voice ready to take responsibility, now more than ever. Vote for me in the 2027 parliamentary elections and let us work together for an educated, safe, and sustainable Finland.",
+  "introBodyText": "Hello! I’m Carl Willandt, a 43-year-old father, communications professional, and local decision-maker from Hämeenkyrö. Whether it’s communications, public speaking, knitting, or hunting, I’m someone who values both practical skills and lifelong learning. My family includes my wife Nina, our two school-aged children, and Uno, our five-year-old German Shorthaired Pointer. I hold a Master of Arts degree and work as a Communications Manager with a focus on sustainability and responsibility. Alongside my professional career, I serve as a Municipal Councillor in Hämeenkyrö, a member of the Education Committee, and Chair of the National Coalition Party Council Group. I believe Finland succeeds when we combine education, responsibility, and the courage to build solutions together.",
+  "prioritiesTitle": "My priorities",
+  "prioritiesIntro": "For me, politics is guided by responsibility, education, and pragmatic, values-based realism. Finland’s future depends on our ability to combine knowledge, courage, sustainability, and cooperation in order to build a stronger society for future generations.",
+  "accordionItems": [
+    {
+      "id": "education",
+      "icon": "graduation-cap",
+      "title": "Education: The Foundation of Finland",
+      "content": "Education is the cornerstone of Finland’s success. Every child and young person deserves a safe learning environment, high-quality teaching, and the opportunity to reach their full potential. I believe in evidence-based decision-making, respect for science, and equal access to education from early childhood to higher education."
+    },
+    {
+      "id": "security",
+      "icon": "shield",
+      "title": "Security Through Economic Strength and National Defence",
+      "content": "A secure Finland is built on a strong economy, sound public finances, and credible defence capabilities. Security requires preparedness, resilience, and responsible decision-making. Finland must strengthen its self-sufficiency, safeguard its defence capabilities, and ensure that future generations inherit both a safe country and a sustainable economy."
+    },
+    {
+      "id": "freedom",
+      "icon": "scale",
+      "title": "Freedom Comes with Responsibility",
+      "content": "Freedom allows people to work, build businesses, make choices, and live according to their own values. At the same time, freedom requires responsibility towards one another and society as a whole. I support entrepreneurship, individual liberty, and equal opportunities, while promoting a culture of respect, inclusion, and personal accountability."
+    },
+    {
+      "id": "nature",
+      "icon": "tree-pine",
+      "title": "Nature, Wellbeing, and Resilience",
+      "content": "A healthy relationship with nature strengthens both individual wellbeing and national resilience. Finland’s rich natural environment offers health benefits, supports biodiversity, and enhances preparedness in an uncertain world. We must protect and restore nature, strengthen carbon sinks, and recognise the value of outdoor traditions, hunting culture, and sustainable stewardship of our natural resources."
+    }
+  ],
+  "ctaTitleBold": "CONTACT",
+  "ctaTitleRegular": "and support",
+  "ctaBodyText": "**Get involved. Make a difference.** You can support my campaign in many ways, whether by sharing my message, volunteering, or making a financial contribution. If you have any questions or would like to invite me to speak at your event, feel free to contact me.",
+  "ctaLabel": "Get in touch",
+  "ctaHref": "/ota-yhteytta"
+}

@@ -8,6 +8,8 @@ interface Props {
   description?: string;
   ogImage?: string;
   ogType?: string;
+  lang?: 'fi' | 'en';
+  hasTranslation?: boolean;
 }
 
 const {
@@ -15,6 +17,8 @@ const {
   description = 'Carl Willandt — Eduskuntavaaliehdokas 2027, Kokoomus, Pirkanmaa. Sivistystä, realismia ja rohkeutta.',
   ogImage = '/og-image.jpg',
   ogType = 'website',
+  lang = 'fi',
+  hasTranslation = false,
 } = Astro.props;
 
 const siteUrl = 'https://willandt.fi';
@@ -23,9 +27,30 @@ const ogImageUrl = new URL(ogImage, siteUrl).href;
 const pageTitle = title === 'Etusivu'
   ? 'Carl Willandt — Eduskuntavaaliehdokas 2027 · Kokoomus · Pirkanmaa'
   : title.includes('—') ? title : `${title} — Carl Willandt`;
+
+const ogLocale = lang === 'en' ? 'en_GB' : 'fi_FI';
+
+// Sivustolla on täsmälleen yksi kieliversiopari: suomenkielinen etusivu ja /en/.
+const LANG_ALTERNATES = [
+  { hreflang: 'fi', href: new URL('/', siteUrl).href },
+  { hreflang: 'en', href: new URL('/en/', siteUrl).href },
+  { hreflang: 'x-default', href: new URL('/', siteUrl).href },
+];
+
+const personDescription = lang === 'en'
+  ? 'National Coalition Party candidate from Pirkanmaa in Finland’s 2027 parliamentary elections. Master of Arts, Communications Manager and Municipal Councillor in Hämeenkyrö.'
+  : 'Kokoomuksen eduskuntavaaliehdokas Pirkanmaalta kevään 2027 vaaleissa. Filosofian maisteri, viestintäpäällikkö ja Hämeenkyrön kunnanvaltuutettu.';
+
+const personJobTitle = lang === 'en'
+  ? 'Candidate for the Finnish Parliament 2027'
+  : 'Eduskuntavaaliehdokas 2027';
+
+const siteDescription = lang === 'en'
+  ? 'Carl Willandt — Candidate for the Finnish Parliament 2027, National Coalition Party, Pirkanmaa.'
+  : 'Carl Willandt — Eduskuntavaaliehdokas 2027, Kokoomus, Pirkanmaa.';
 ---
 <!doctype html>
-<html lang="fi">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,6 +59,9 @@ const pageTitle = title === 'Etusivu'
     <meta name="generator" content={Astro.generator} />
 
     <link rel="canonical" href={canonicalUrl} />
+    {hasTranslation && LANG_ALTERNATES.map(alt => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -53,7 +81,7 @@ const pageTitle = title === 'Etusivu'
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Carl Willandt — Kokoomuksen eduskuntavaaliehdokas Pirkanmaalta 2027" />
-    <meta property="og:locale" content="fi_FI" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:site_name" content="Carl Willandt" />
 
     <!-- Twitter / X Card -->
@@ -72,8 +100,8 @@ const pageTitle = title === 'Etusivu'
         "name": "Carl Willandt",
         "url": "https://willandt.fi",
         "image": "https://willandt.fi/og-image.jpg",
-        "jobTitle": "Eduskuntavaaliehdokas 2027",
-        "description": "Kokoomuksen eduskuntavaaliehdokas Pirkanmaalta kevään 2027 vaaleissa. Filosofian maisteri, viestintäpäällikkö ja Hämeenkyrön kunnanvaltuutettu.",
+        "jobTitle": personJobTitle,
+        "description": personDescription,
         "memberOf": {
           "@type": "Organization",
           "name": "Kansallinen Kokoomus",
@@ -91,8 +119,8 @@ const pageTitle = title === 'Etusivu'
         "@id": "https://willandt.fi/#website",
         "url": "https://willandt.fi",
         "name": "Carl Willandt",
-        "description": "Carl Willandt — Eduskuntavaaliehdokas 2027, Kokoomus, Pirkanmaa.",
-        "inLanguage": "fi",
+        "description": siteDescription,
+        "inLanguage": lang,
         "publisher": {
           "@id": "https://willandt.fi/#carl-willandt"
         }
