@@ -45,9 +45,9 @@ const { titleBold, titleRegular, bodyText, bodyHtml, ctaLabel, ctaHref } = Astro
     font-size: 1.125rem;
     line-height: 1.75;
   }
-  .cta-body p { margin: 0; }
-  .cta-body p + p { margin-top: 0.75rem; }
-  .cta-body strong { font-weight: 700; color: var(--color-offwhite); }
+  .cta-body :global(p) { margin: 0; }
+  .cta-body :global(p + p) { margin-top: 0.75rem; }
+  .cta-body :global(strong) { font-weight: 700; color: var(--color-offwhite); }
   @media (min-width: 768px) {
     .cta-grid {
       grid-template-columns: 1fr 1fr !important;
