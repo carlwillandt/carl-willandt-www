@@ -1,6 +1,6 @@
 ---
 title: "Mielipide: Turvallinen digiarki tehdään yhdessä"
-date: 2026-05-21T16:29:00.000+03:00
+date: 2026-05-11T16:29:00.000+03:00
 category: Turvallisuus
 excerpt: "Vaikka julkisen vallan kautta pystytäänkin jonkin verran vaikuttamaan
   lasten ja nuorten mobiilikäyttöön, on asiassa suuri vastuu meillä vanhemmilla.
