@@ -4,12 +4,25 @@ interface Props {
   bodyHtml: string;
   ctaLabel?: string;
   ctaHref?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  imagePosition?: string;
+  mediaAspect?: string;
 }
-const { videoUrl, bodyHtml, ctaLabel, ctaHref } = Astro.props;
+const {
+  videoUrl,
+  bodyHtml,
+  ctaLabel,
+  ctaHref,
+  imageSrc = '/hero-tavoitteeni.webp',
+  imageAlt = 'Carl Willandt',
+  imagePosition = '50% 30%',
+  mediaAspect = '16/9',
+} = Astro.props;
 ---
 <section style="padding: 4rem 0; background-color: var(--color-cream);">
   <div class="container-custom video-grid">
-    <div style="aspect-ratio: 16/9; background: rgba(13,27,42,0.08); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative;">
+    <div style={`aspect-ratio: ${mediaAspect}; background: rgba(13,27,42,0.08); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative;`}>
       {videoUrl ? (
         <iframe
           src={videoUrl}
@@ -20,9 +33,9 @@ const { videoUrl, bodyHtml, ctaLabel, ctaHref } = Astro.props;
         />
       ) : (
         <img
-          src="/hero-tavoitteeni.webp"
-          alt="Carl Willandt"
-          style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;"
+          src={imageSrc}
+          alt={imageAlt}
+          style={`width: 100%; height: 100%; object-fit: cover; object-position: ${imagePosition};`}
           loading="lazy"
         />
       )}
