@@ -206,13 +206,27 @@ Lisää `src/components/ui/CTASection.astro`:n `<style>`-lohkon alkuun, ennen `@
 
 - [ ] **Step 7: Aja regressiotarkistus**
 
-Vertailu jättää huomiotta tyhjät rivit ja välilyöntien määrän (`-B -w`), koska Astro säilyttää templaatin rivinvaihdot generoidussa HTML:ssä — pelkkä uusi rivi lähdekoodissa muuttaisi tavuvertailun tuloksen ilman että lopputulos muuttuu.
+Vertailu tehdään kahdessa osassa, koska Astro niputtaa komponentin koko scoped `<style>`-lohkon jokaiselle sivulle joka käyttää komponenttia — riippumatta siitä mikä haara renderöityy. Step 6:n `.cta-body`-säännöt päätyvät siis myös suomenkieliselle etusivulle, vaikka mikään elementti siellä ei käytä niitä. Se on odotettua eikä muuta sivun ulkoasua.
+
+**A) Renderöity DOM on identtinen** — tämä on varsinainen vaatimus:
 
 ```bash
-npm run build && diff -B -w /tmp/cw-index-baseline.html dist/index.html && echo "EI EROJA"
+npm run build
+perl -0pe 's|<style>.*?</style>||gs' /tmp/cw-index-baseline.html > /tmp/cw-a.html
+perl -0pe 's|<style>.*?</style>||gs' dist/index.html > /tmp/cw-b.html
+diff -B -w /tmp/cw-a.html /tmp/cw-b.html && echo "DOM IDENTTINEN"
 ```
 
-Expected: `EI EROJA`. Jos `diff` tulostaa eroja, jokin oletusarvo ei vastaa aiempaa käytöstä — korjaa oletusarvo ja aja uudelleen.
+Expected: `DOM IDENTTINEN`. Jos `diff` tulostaa eroja, jokin oletusarvo ei vastaa aiempaa käytöstä — korjaa oletusarvo ja aja uudelleen. **Älä löysennä vertailua.**
+
+**B) Uusi CSS-luokka ei ole käytössä suomenkielisellä sivulla:**
+
+```bash
+grep -c 'class="cta-body"' dist/index.html
+diff -B -w /tmp/cw-index-baseline.html dist/index.html | grep -c 'cta-body'
+```
+
+Expected: ensimmäinen tulostaa `0` (luokkaa ei renderöidä), toinen tulostaa nollaa suuremman luvun (säännöt ovat mukana tyylilohkossa). Jos ensimmäinen tulostaa muuta kuin `0`, `CTASection` on ottanut `bodyHtml`-haaran vahingossa käyttöön myös suomeksi.
 
 - [ ] **Step 8: Commit**
 
