@@ -48,6 +48,10 @@ const personJobTitle = lang === 'en'
 const siteDescription = lang === 'en'
   ? 'Carl Willandt — Candidate for the Finnish Parliament 2027, National Coalition Party, Pirkanmaa.'
   : 'Carl Willandt — Eduskuntavaaliehdokas 2027, Kokoomus, Pirkanmaa.';
+
+const ogImageAlt = lang === 'en'
+  ? 'Carl Willandt — National Coalition Party candidate for the Finnish Parliament 2027, Pirkanmaa'
+  : 'Carl Willandt — Kokoomuksen eduskuntavaaliehdokas Pirkanmaalta 2027';
 ---
 <!doctype html>
 <html lang={lang}>
@@ -80,7 +84,7 @@ const siteDescription = lang === 'en'
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Carl Willandt — Kokoomuksen eduskuntavaaliehdokas Pirkanmaalta 2027" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:site_name" content="Carl Willandt" />
 
