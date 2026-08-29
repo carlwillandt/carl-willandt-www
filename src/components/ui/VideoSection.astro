@@ -63,8 +63,8 @@ const {
     line-height: 1.7;
     color: var(--color-body-text);
   }
-  .video-text p { margin-bottom: 1rem; }
-  .video-text p:last-child { margin-bottom: 0; }
+  .video-text :global(p) { margin-bottom: 1rem; }
+  .video-text :global(p:last-child) { margin-bottom: 0; }
   @media (min-width: 768px) {
     .video-grid {
       grid-template-columns: 1fr 1fr;

@@ -16,8 +16,8 @@ function isActive(href: string): boolean {
 
 const isEnglish = currentPath === '/en' || currentPath === '/en/';
 const langLink = isEnglish
-  ? { href: '/', label: 'Suomeksi' }
-  : { href: '/en', label: 'In English' };
+  ? { href: '/', label: 'Suomeksi', short: 'FI', lang: 'fi' }
+  : { href: '/en', label: 'In English', short: 'EN', lang: 'en' };
 ---
 <header class="site-header">
   <div class="container-custom header-inner">
@@ -38,7 +38,7 @@ const langLink = isEnglish
           {link.label}
         </a>
       ))}
-      <a href={langLink.href} class="lang-link">{langLink.label}</a>
+      <a href={langLink.href} class="lang-link" lang={langLink.lang} hreflang={langLink.lang}>{langLink.short}</a>
       <a href="/vapaaehtoiseksi" class="btn-primary nav-cta">
         Tukijoukot
       </a>
@@ -72,7 +72,7 @@ const langLink = isEnglish
           {link.label}
         </a>
       ))}
-      <a href={langLink.href} class="mobile-lang-link">{langLink.label}</a>
+      <a href={langLink.href} class="mobile-lang-link" lang={langLink.lang} hreflang={langLink.lang}>{langLink.label}</a>
       <a href="/vapaaehtoiseksi" class="btn-primary" style="text-align: center; margin-top: 1rem; font-size: 0.875rem;">
         Tukijoukot
       </a>
@@ -136,7 +136,7 @@ const langLink = isEnglish
   .nav-link {
     display: flex;
     align-items: center;
-    padding: 1.05rem 1.3125rem;
+    padding: 1.05rem 0.875rem;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0;
@@ -163,7 +163,7 @@ const langLink = isEnglish
   }
 
   .nav-cta {
-    margin-left: 1.3125rem;
+    margin-left: 0.875rem;
     font-size: 1rem;
     letter-spacing: 0;
     flex-shrink: 0;
@@ -173,7 +173,7 @@ const langLink = isEnglish
   .lang-link {
     display: flex;
     align-items: center;
-    padding: 1.05rem 1rem;
+    padding: 1.05rem 0.625rem;
     font-size: 0.875rem;
     font-weight: 500;
     text-transform: none;
@@ -201,6 +201,7 @@ const langLink = isEnglish
     padding: 0.75rem 0;
     text-decoration: none;
     border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-left: 3px solid transparent;
   }
 
   /* Mobile */

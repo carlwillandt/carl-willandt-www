@@ -30,11 +30,11 @@ const pageTitle = title === 'Etusivu'
 
 const ogLocale = lang === 'en' ? 'en_GB' : 'fi_FI';
 
-// Sivustolla on täsmälleen yksi kieliversiopari: suomenkielinen etusivu ja /en.
+// Sivustolla on täsmälleen yksi kieliversiopari: suomenkielinen etusivu ja /en/.
 const LANG_ALTERNATES = [
-  { hreflang: 'fi', href: 'https://willandt.fi/' },
-  { hreflang: 'en', href: 'https://willandt.fi/en' },
-  { hreflang: 'x-default', href: 'https://willandt.fi/' },
+  { hreflang: 'fi', href: new URL('/', siteUrl).href },
+  { hreflang: 'en', href: new URL('/en/', siteUrl).href },
+  { hreflang: 'x-default', href: new URL('/', siteUrl).href },
 ];
 
 const personDescription = lang === 'en'
