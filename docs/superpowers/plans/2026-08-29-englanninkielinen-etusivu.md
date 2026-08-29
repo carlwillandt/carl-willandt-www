@@ -199,10 +199,14 @@ Lisää `src/components/ui/CTASection.astro`:n `<style>`-lohkon alkuun, ennen `@
     font-size: 1.125rem;
     line-height: 1.75;
   }
-  .cta-body p { margin: 0; }
-  .cta-body p + p { margin-top: 0.75rem; }
-  .cta-body strong { font-weight: 700; color: var(--color-offwhite); }
+  .cta-body :global(p) { margin: 0; }
+  .cta-body :global(p + p) { margin-top: 0.75rem; }
+  .cta-body :global(strong) { font-weight: 700; color: var(--color-offwhite); }
 ```
+
+**`:global()` on pakollinen jälkeläisvalitsimissa.** Astro leimaa `data-astro-cid-*`-attribuutin vain elementteihin jotka se itse kääntää templaatista — ei `set:html`illa injektoituun HTML:ään. Ilman `:global()`:ia sääntö kääntyisi muotoon `.cta-body[cid] p[cid]`, eikä se osuisi koskaan `marked`in tuottamaan `<p>`-elementtiin. Sama pätee `strong`-valitsimeen, jolla lihavointi saa oikean värin.
+
+Sama vika on olemassa jo `VideoSection`in `.video-text p` -säännössä. **Älä korjaa sitä tässä taskissa** — se on tämän työn ulkopuolella.
 
 - [ ] **Step 7: Aja regressiotarkistus**
 
