@@ -127,3 +127,39 @@ collections:
           - { label: "Osion otsikko", name: introTitle, widget: string }
           - { label: "Ensimmäinen kappale", name: introParagraph1, widget: text }
           - { label: "Toinen kappale", name: introParagraph2, widget: text }
+
+      - label: "Englanninkielinen sivu"
+        name: en
+        file: src/content/settings/en.json
+        fields:
+          - { label: "Sivun otsikko (selaimen välilehti, hakukoneet)", name: metaTitle, widget: string }
+          - { label: "Sivun kuvaus (hakukoneet, some)", name: metaDescription, widget: text }
+          - { label: "Hero-otsikko (lihavoitu rivi, esim. EDUCATION.)", name: heroTextBold, widget: string }
+          - { label: "Hero-otsikko (kevyt rivi, esim. Realism. Courage.)", name: heroTextRegular, widget: string }
+          - { label: "Hero-leipäteksti", name: heroBodyText, widget: text }
+          - { label: "Esittelyteksti kuvan vieressä", name: introBodyText, widget: markdown }
+          - { label: "Teemaosion otsikko", name: prioritiesTitle, widget: string }
+          - { label: "Teemaosion johdantokappale", name: prioritiesIntro, widget: text }
+          - label: "Teemat (haitariosiot)"
+            name: accordionItems
+            widget: list
+            fields:
+              - { label: "Tunniste (älä muuta)", name: id, widget: string }
+              - { label: "Otsikko", name: title, widget: string }
+              - label: "Ikoni"
+                name: icon
+                widget: select
+                options:
+                  - { label: "Koti", value: home }
+                  - { label: "Kirja", value: book-open }
+                  - { label: "Trophy", value: trophy }
+                  - { label: "Puu", value: tree-pine }
+                  - { label: "Kilpi", value: shield }
+                  - { label: "Lakki", value: graduation-cap }
+                  - { label: "Vaaka", value: scale }
+              - { label: "Sisältö", name: content, widget: markdown }
+          - { label: "CTA-laatikko: otsikko (lihavoitu rivi)", name: ctaTitleBold, widget: string }
+          - { label: "CTA-laatikko: otsikko (kevyt rivi)", name: ctaTitleRegular, widget: string }
+          - { label: "CTA-laatikko: teksti", name: ctaBodyText, widget: markdown }
+          - { label: "CTA-laatikko: napin teksti", name: ctaLabel, widget: string }
+          - { label: "CTA-laatikko: napin linkki", name: ctaHref, widget: string }
