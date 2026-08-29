@@ -86,13 +86,15 @@ Molemmat ovat pieniä, taaksepäin yhteensopivia propsilisäyksiä, ja molemmat 
 
 - [ ] **Step 1: Ota regressiolinjaus talteen**
 
-Rakenna sivusto nykyisellä koodilla ja ota etusivun HTML:stä tarkistussumma.
+Rakenna sivusto nykyisellä koodilla ja ota etusivun HTML talteen.
+
+> **Huom:** `npm run build` kestää tässä repossa useita minuutteja, koska `public/medialle/` sisältää suuria kuvatiedostoja jotka kopioidaan `dist/`:iin. Älä keskeytä sitä.
 
 ```bash
-npm run build && shasum dist/index.html | tee /tmp/cw-index-baseline.txt
+npm run build && cp dist/index.html /tmp/cw-index-baseline.html && echo "linjaus otettu"
 ```
 
-Expected: build menee läpi, ja komento tulostaa yhden tarkistussumman.
+Expected: build menee läpi ja tulostaa `linjaus otettu`.
 
 - [ ] **Step 2: Laajenna `VideoSection` frontmatter**
 
@@ -204,11 +206,13 @@ Lisää `src/components/ui/CTASection.astro`:n `<style>`-lohkon alkuun, ennen `@
 
 - [ ] **Step 7: Aja regressiotarkistus**
 
+Vertailu jättää huomiotta tyhjät rivit ja välilyöntien määrän (`-B -w`), koska Astro säilyttää templaatin rivinvaihdot generoidussa HTML:ssä — pelkkä uusi rivi lähdekoodissa muuttaisi tavuvertailun tuloksen ilman että lopputulos muuttuu.
+
 ```bash
-npm run build && shasum dist/index.html && cat /tmp/cw-index-baseline.txt
+npm run build && diff -B -w /tmp/cw-index-baseline.html dist/index.html && echo "EI EROJA"
 ```
 
-Expected: build menee läpi, ja **molemmat tarkistussummat ovat identtiset**. Jos ne eroavat, jokin oletusarvo ei vastaa aiempaa käytöstä — vertaa `git stash`illa ennen ja jälkeen ja korjaa oletusarvo.
+Expected: `EI EROJA`. Jos `diff` tulostaa eroja, jokin oletusarvo ei vastaa aiempaa käytöstä — korjaa oletusarvo ja aja uudelleen.
 
 - [ ] **Step 8: Commit**
 
@@ -232,11 +236,13 @@ Tällä hetkellä `lang="fi"`, `og:locale` `fi_FI` ja JSON-LD:n `inLanguage` ova
 
 - [ ] **Step 1: Ota regressiolinjaus talteen**
 
+> **Huom:** `npm run build` kestää useita minuutteja. Älä keskeytä sitä.
+
 ```bash
-npm run build && shasum dist/index.html dist/carl/index.html | tee /tmp/cw-layout-baseline.txt
+npm run build && cp dist/index.html /tmp/cw-layout-index.html && cp dist/carl/index.html /tmp/cw-layout-carl.html && echo "linjaus otettu"
 ```
 
-Expected: kaksi tarkistussummaa.
+Expected: `linjaus otettu`.
 
 - [ ] **Step 2: Laajenna frontmatter**
 
@@ -371,11 +377,16 @@ Korvaa `<script type="application/ld+json" ...>` -elementti kokonaan tällä:
 
 - [ ] **Step 7: Aja regressiotarkistus**
 
+Vertailu jättää huomiotta tyhjät rivit ja välilyöntien määrän (`-B -w`), koska hreflang-lohkon lisääminen templaattiin muuttaa rivinvaihtoja myös silloin kun `hasTranslation` on `false`.
+
 ```bash
-npm run build && shasum dist/index.html dist/carl/index.html && cat /tmp/cw-layout-baseline.txt
+npm run build \
+  && diff -B -w /tmp/cw-layout-index.html dist/index.html \
+  && diff -B -w /tmp/cw-layout-carl.html dist/carl/index.html \
+  && echo "EI EROJA"
 ```
 
-Expected: build menee läpi ja **molemmat tarkistussummaparit ovat identtiset**. Suomenkieliset sivut käyttävät oletusarvoja, joten HTML ei saa muuttua.
+Expected: `EI EROJA`. Suomenkieliset sivut käyttävät oletusarvoja, joten sisältö ei saa muuttua. Erityisesti JSON-LD:n pitää olla identtinen: `personJobTitle`, `personDescription` ja `siteDescription` tuottavat suomeksi täsmälleen samat merkkijonot kuin aiemmat kovakoodatut arvot.
 
 - [ ] **Step 8: Commit**
 
