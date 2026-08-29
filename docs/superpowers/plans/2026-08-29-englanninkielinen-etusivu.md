@@ -397,14 +397,47 @@ Korvaa `<script type="application/ld+json" ...>` -elementti kokonaan tällä:
 
 Vertailu jättää huomiotta tyhjät rivit ja välilyöntien määrän (`-B -w`), koska hreflang-lohkon lisääminen templaattiin muuttaa rivinvaihtoja myös silloin kun `hasTranslation` on `false`.
 
+Lisäksi `Accordion.astro:25` generoi ryhmätunnisteen `Math.random()`illa, joten **jokainen build tuottaa eri tunnisteet** haitareita käyttäville sivuille (Carl ja Tavoitteeni). Etusivu ei käytä `Accordion`ia, joten se vertautuu suoraan; Carl-sivulta tunnisteet normalisoidaan ennen vertailua. Tämä on olemassa oleva ominaisuus eikä liity tähän taskiin — **älä korjaa sitä tässä.**
+
 ```bash
-npm run build \
-  && diff -B -w /tmp/cw-layout-index.html dist/index.html \
-  && diff -B -w /tmp/cw-layout-carl.html dist/carl/index.html \
-  && echo "EI EROJA"
+npm run build
+diff -B -w /tmp/cw-layout-index.html dist/index.html && echo "ETUSIVU: EI EROJA"
+sed -E 's/acc-[a-z0-9]{5}/acc-XXXXX/g' /tmp/cw-layout-carl.html > /tmp/cw-carl-a.html
+sed -E 's/acc-[a-z0-9]{5}/acc-XXXXX/g' dist/carl/index.html   > /tmp/cw-carl-b.html
+diff -B -w /tmp/cw-carl-a.html /tmp/cw-carl-b.html && echo "CARL: EI EROJA"
 ```
 
-Expected: `EI EROJA`. Suomenkieliset sivut käyttävät oletusarvoja, joten sisältö ei saa muuttua. Erityisesti JSON-LD:n pitää olla identtinen: `personJobTitle`, `personDescription` ja `siteDescription` tuottavat suomeksi täsmälleen samat merkkijonot kuin aiemmat kovakoodatut arvot.
+Expected: `ETUSIVU: EI EROJA` ja `CARL: EI EROJA`. Suomenkieliset sivut käyttävät oletusarvoja, joten sisältö ei saa muuttua.
+
+Varmista lisäksi suoraan, että suomenkielisen etusivun `<head>` on oikein — tämä on tarkempi tarkistus kuin pelkkä diff:
+
+```bash
+grep -o '<html lang="[a-z]*"' dist/index.html
+grep -o 'property="og:locale" content="[^"]*"' dist/index.html
+grep -c 'rel="alternate"' dist/index.html
+python3 -c "
+import re, json
+h = open('dist/index.html', encoding='utf-8').read()
+m = re.search(r'<script type=\"application/ld\+json\">(.*?)</script>', h, re.S)
+d = json.loads(m.group(1))
+print(d[0]['jobTitle'])
+print(d[0]['description'])
+print(d[1]['description'])
+print(d[1]['inLanguage'])"
+```
+
+Expected:
+```
+<html lang="fi"
+property="og:locale" content="fi_FI"
+0
+Eduskuntavaaliehdokas 2027
+Kokoomuksen eduskuntavaaliehdokas Pirkanmaalta kevään 2027 vaaleissa. Filosofian maisteri, viestintäpäällikkö ja Hämeenkyrön kunnanvaltuutettu.
+Carl Willandt — Eduskuntavaaliehdokas 2027, Kokoomus, Pirkanmaa.
+fi
+```
+
+Nämä ovat täsmälleen ne merkkijonot jotka olivat aiemmin kovakoodattuina. Jos jokin eroaa, `personJobTitle`, `personDescription` tai `siteDescription` on kirjoitettu väärin.
 
 - [ ] **Step 8: Commit**
 
