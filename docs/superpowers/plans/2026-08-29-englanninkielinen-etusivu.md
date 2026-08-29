@@ -45,21 +45,21 @@ Jos `cwebp` puuttuu, asenna: `brew install webp`.
 
 - [ ] **Step 2: Pakkaa kuva**
 
-`-resize 1600 0` skaalaa leveyden 1600 pikseliin ja laskee korkeuden kuvasuhteen mukaan (3:2 → 1600×1067).
+`-resize 1400 0` skaalaa leveyden 1400 pikseliin ja laskee korkeuden kuvasuhteen mukaan (3:2 → 1400×934).
+
+Kuva näytetään `VideoSection`in kaksipalstaisessa ruudukossa, jossa palstan leveys on noin 570 px — 1400 px riittää siis myös retinanäytöille. Leveämpi kuva vain kasvattaisi tiedostokokoa ilman näkyvää hyötyä: mitatut vaihtoehdot olivat 1600 px / q82 = 345 kt, 1600 px / q72 = 245 kt (näkyvää sumeutta lehvästössä) ja 1400 px / q78 = 235 kt.
 
 ```bash
-cwebp -q 82 -resize 1600 0 public/medialle/CarlWillandt-4948.jpg -o public/en-carl-uno.webp
+cwebp -m 6 -sharp_yuv -q 78 -resize 1400 0 public/medialle/CarlWillandt-4948.jpg -o public/en-carl-uno.webp
 ```
 
 - [ ] **Step 3: Varmista mitat ja tiedostokoko**
 
 ```bash
-sips -g pixelWidth -g pixelHeight public/en-carl-uno.webp && ls -l public/en-carl-uno.webp | awk '{print $5 " bytes"}'
+sips -g pixelWidth -g pixelHeight public/en-carl-uno.webp && stat -f%z public/en-carl-uno.webp
 ```
 
-Expected: `pixelWidth: 1600`, `pixelHeight: 1067`, koko alle 256000 tavua.
-
-Jos koko ylittää 250 kt, aja Step 2 uudelleen arvolla `-q 78`.
+Expected: `pixelWidth: 1400`, `pixelHeight: 934`, koko alle 256000 tavua (mitattu tulos: 234778).
 
 - [ ] **Step 4: Commit**
 
