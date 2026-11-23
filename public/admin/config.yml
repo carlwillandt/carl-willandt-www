@@ -124,6 +124,7 @@ collections:
         name: vapaaehtoiseksi
         file: src/content/settings/vapaaehtoiseksi.json
         fields:
+          - { label: "Pääotsikko", name: heroTitleBold, widget: string }
           - { label: "Osion otsikko", name: introTitle, widget: string }
           - { label: "Ensimmäinen kappale", name: introParagraph1, widget: text }
           - { label: "Toinen kappale", name: introParagraph2, widget: text }
