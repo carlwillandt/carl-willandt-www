@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ui/ContactForm.astro';
+import DonationSection from '../components/ui/DonationSection.astro';
 import data from '../content/settings/vapaaehtoiseksi.json';
+
+const showDonation = Boolean(data.mobilepayNumber?.trim() || data.bankIban?.trim());
 
 const fields = [
   { name: 'name', label: 'Nimi', type: 'text' as const, required: true, placeholder: 'Etunimi Sukunimi' },
@@ -11,13 +14,13 @@ const fields = [
 ];
 ---
 <BaseLayout
-  title="Vapaaehtoiseksi"
-  description="Liity Carl Willandtin tukijoukkoihin — tule mukaan kampanjaan vapaaehtoisena kevään 2027 eduskuntavaaleissa."
+  title="Tukijoukot"
+  description="Liity Carl Willandtin tukijoukkoihin vapaaehtoisena tai tue kampanjaa rahallisesti kevään 2027 eduskuntavaaleissa."
 >
   <section style="background-color: var(--color-navy); padding: 4rem 0;">
     <div class="container-custom">
       <h1 style="font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; color: var(--color-cream); text-transform: uppercase; line-height: 1;">
-        TUKIJOUKKOIHIN
+        {data.heroTitleBold || 'TUKIJOUKOT'}
       </h1>
     </div>
   </section>
@@ -33,6 +36,11 @@ const fields = [
           <p style="color: var(--color-body-text); line-height: 1.75;">
             {data.introParagraph2}
           </p>
+          {showDonation && (
+            <p style="margin-top: 1.5rem;">
+              <a href="#tue-kampanjaa" class="donation-link">Voit tukea kampanjaa myös rahallisesti ↓</a>
+            </p>
+          )}
         </div>
         <div>
           <ContactForm
@@ -45,9 +53,34 @@ const fields = [
       </div>
     </div>
   </section>
+
+  {showDonation && (
+    <DonationSection
+      title={data.donationTitle || 'Tue kampanjaa taloudellisesti'}
+      intro={data.donationIntro}
+      mobilepayNumber={data.mobilepayNumber}
+      bankRecipient={data.bankRecipient}
+      bankIban={data.bankIban}
+      bankMessage={data.bankMessage}
+      note={data.donationNote}
+      thanks={data.donationThanks}
+    />
+  )}
 </BaseLayout>
 
 <style>
+  .donation-link {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-green-brand);
+    text-decoration: none;
+  }
+  .donation-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
   .volunteer-grid {
     display: grid;
     grid-template-columns: 1fr;

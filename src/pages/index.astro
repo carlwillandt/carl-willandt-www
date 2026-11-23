@@ -42,8 +42,17 @@ const [featured, ...rest] = latestPosts;
     ctaHref="/carl"
   />
 
+  <CTASection
+    titleBold="LÄHDE MUKAAN"
+    titleRegular="tukijoukkoihin!"
+    bodyText="Voit osallistua kampanjaan monella tavalla — tule mukaan vapaaehtoiseksi, jaa viestiä tai tue kampanjaa."
+    ctaLabel="Lähde mukaan!"
+    ctaHref="/vapaaehtoiseksi"
+    flushTop={true}
+  />
+
   {latestPosts.length > 0 && (
-    <section style="padding: 0; background-color: var(--color-cream);">
+    <section style="padding: 0 0 4rem; background-color: var(--color-cream);">
       <div class="container-custom">
         {/* Featured card row (1 large + 1 normal) */}
         {featured && (
@@ -83,14 +92,6 @@ const [featured, ...rest] = latestPosts;
       </div>
     </section>
   )}
-
-  <CTASection
-    titleBold="LÄHDE MUKAAN"
-    titleRegular="tukijoukkoihin!"
-    bodyText="Voit osallistua kampanjaan monella tavalla — tule mukaan vapaaehtoiseksi, jaa viestiä tai tue kampanjaa."
-    ctaLabel="Lähde mukaan!"
-    ctaHref="/vapaaehtoiseksi"
-  />
 </BaseLayout>
 
 <style>

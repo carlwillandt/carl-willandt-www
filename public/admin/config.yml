@@ -124,9 +124,20 @@ collections:
         name: vapaaehtoiseksi
         file: src/content/settings/vapaaehtoiseksi.json
         fields:
+          - { label: "Pääotsikko", name: heroTitleBold, widget: string }
           - { label: "Osion otsikko", name: introTitle, widget: string }
           - { label: "Ensimmäinen kappale", name: introParagraph1, widget: text }
           - { label: "Toinen kappale", name: introParagraph2, widget: text }
+          - { label: "Rahallinen tuki: otsikko", name: donationTitle, widget: string, required: false }
+          - { label: "Rahallinen tuki: johdanto", name: donationIntro, widget: text, required: false }
+          - { label: "MobilePay/Vipps-numero", name: mobilepayNumber, widget: string, required: false,
+              hint: "Tyhjä = kortti piilotetaan. Jos sekä MobilePay-numero että tilinumero ovat tyhjiä, koko rahallisen tuen osio piilotetaan." }
+          - { label: "Tilisiirto: saaja", name: bankRecipient, widget: string, required: false }
+          - { label: "Tilisiirto: tilinumero", name: bankIban, widget: string, required: false,
+              hint: "Tyhjä = kortti piilotetaan. Jos sekä MobilePay-numero että tilinumero ovat tyhjiä, koko rahallisen tuen osio piilotetaan." }
+          - { label: "Tilisiirto: viesti", name: bankMessage, widget: string, required: false }
+          - { label: "Rahallinen tuki: huomautus vaalirahoitusrajoista", name: donationNote, widget: text, required: false }
+          - { label: "Rahallinen tuki: kiitosteksti", name: donationThanks, widget: string, required: false }
 
       - label: "Englanninkielinen sivu"
         name: en
