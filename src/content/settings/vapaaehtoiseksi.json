@@ -2,5 +2,13 @@
   "heroTitleBold": "TUKIJOUKOT",
   "introTitle":"Miksi liittyä tukijoukkoihin?",
   "introParagraph1": "Menestynyt kampanja tehdään yhdessä. Se syntyy yhteistyöstä, sitoutuneista ihmisistä ja heidän aktiivisuudestaan. Jos haluat tukea matkaani kohti kansanedustajan tehtävää, liity mukaan tukitiimiini! Kampanjaan voit osallistua monella tavalla, omien resurssiesi ja jaksamisesi mukaan; jakamalla viestiä somessa, osallistumalla vaalitilaisuuksiin tai auttamalla kampanjan käytännön järjestelyissä.\n",
-  "introParagraph2": "Täytä oheinen lomake, niin otamme sinuun yhteyttä sopivasta tavasta osallistua!"
+  "introParagraph2": "Täytä oheinen lomake, niin otamme sinuun yhteyttä sopivasta tavasta osallistua!",
+  "donationTitle": "Tue kampanjaa taloudellisesti",
+  "donationIntro": "Onnistunut kampanja vaatii myös taloudellista selkänojaa. Voit tukea kampanjaani rahallisesti seuraavilla tavoilla:",
+  "mobilepayNumber": "45967",
+  "bankRecipient": "Carl Willandtin Tukiyhdistys ry",
+  "bankIban": "FI07 5730 0821 7235 96",
+  "bankMessage": "Vaalit 2027",
+  "donationNote": "Huomaathan, että 6 000 € on enimmäismäärä, jonka eduskuntavaaliehdokas tai hänen tukiyhdistyksensä voi vastaanottaa samalta tukijalta. Mikäli yksittäisen tukijan antaman tuen arvo on vähintään 2 000 €, tukijan nimi ja tuen määrä ilmoitetaan vaalirahoitusilmoituksessa.",
+  "donationThanks": "Kiitos tuestasi ja lämpimästi tervetuloa mukaan!"
 }
