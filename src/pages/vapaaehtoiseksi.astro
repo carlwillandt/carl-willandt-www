@@ -3,8 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ui/ContactForm.astro';
 import DonationSection from '../components/ui/DonationSection.astro';
 import data from '../content/settings/vapaaehtoiseksi.json';
+import { normalizeIban, normalizeMobilepay } from '../lib/donation';
 
-const showDonation = Boolean(data.mobilepayNumber?.trim() || data.bankIban?.trim());
+const showDonation = Boolean(normalizeMobilepay(data.mobilepayNumber) || normalizeIban(data.bankIban));
 
 const fields = [
   { name: 'name', label: 'Nimi', type: 'text' as const, required: true, placeholder: 'Etunimi Sukunimi' },
@@ -38,7 +39,7 @@ const fields = [
           </p>
           {showDonation && (
             <p style="margin-top: 1.5rem;">
-              <a href="#tue-kampanjaa" class="donation-link">Voit tukea kampanjaa myös rahallisesti ↓</a>
+              <a href="#tue-kampanjaa" class="donation-link">Voit tukea kampanjaa myös rahallisesti <span aria-hidden="true">↓</span></a>
             </p>
           )}
         </div>

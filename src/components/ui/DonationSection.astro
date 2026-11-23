@@ -1,4 +1,6 @@
 ---
+import { formatIban, isValidIban, normalizeIban, normalizeMobilepay } from '../../lib/donation';
+
 interface Props {
   title: string;
   intro?: string;
@@ -16,8 +18,17 @@ function keepAmountsTogether(text: string): string {
   return text.replace(/(\d) (?=\d{3}(?!\d))/g, '$1 ').replace(/(\d) €/g, '$1 €');
 }
 
-const mobilepay = mobilepayNumber?.trim();
-const iban = bankIban?.trim();
+const mobilepay = normalizeMobilepay(mobilepayNumber);
+const iban = normalizeIban(bankIban);
+
+// Väärä tilinumero ei saa päätyä tukijoille: build kaatuu, ja edellinen julkaistu versio jää voimaan.
+if (iban && !isValidIban(iban)) {
+  throw new Error(
+    `Rahallisen tuen tilinumero "${bankIban}" ei ole kelvollinen IBAN (tarkistussumma ei täsmää). ` +
+    'Korjaa se Decap CMS:ssä: Sivuston asetukset → Tukijoukot-sivu → Tilisiirto: tilinumero. ' +
+    'Sivustoa ei julkaista ennen korjausta, joten edellinen versio pysyy näkyvissä.'
+  );
+}
 const recipient = bankRecipient?.trim();
 const message = bankMessage?.trim();
 ---
@@ -38,9 +49,9 @@ const message = bankMessage?.trim();
                 <dt>Numero</dt>
                 <dd class="donation-value">
                   <span class="donation-number" data-copy-value>{mobilepay}</span>
-                  <button type="button" class="copy-btn" data-copy={mobilepay.replace(/\s+/g, '')} data-copy-label="MobilePay-numero" aria-label="Kopioi MobilePay-numero" hidden>
+                  <button type="button" class="copy-btn" data-copy={mobilepay} data-copy-label="MobilePay-numero" hidden>
                     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
-                    <span class="copy-btn-text">Kopioi</span>
+                    <span class="copy-btn-text">Kopioi</span><span class="sr-only"> MobilePay-numero</span>
                   </button>
                 </dd>
               </div>
@@ -61,10 +72,10 @@ const message = bankMessage?.trim();
               <div class="donation-row">
                 <dt>Tilinumero</dt>
                 <dd class="donation-value">
-                  <span class="donation-iban" data-copy-value>{iban}</span>
-                  <button type="button" class="copy-btn" data-copy={iban.replace(/\s+/g, '')} data-copy-label="Tilinumero" aria-label="Kopioi tilinumero" hidden>
+                  <span class="donation-iban" data-copy-value>{formatIban(iban)}</span>
+                  <button type="button" class="copy-btn" data-copy={iban} data-copy-label="Tilinumero" hidden>
                     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
-                    <span class="copy-btn-text">Kopioi</span>
+                    <span class="copy-btn-text">Kopioi</span><span class="sr-only"> tilinumero</span>
                   </button>
                 </dd>
               </div>
@@ -217,6 +228,13 @@ const message = bankMessage?.trim();
   .donation-iban {
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+  }
+
+  /* Yksi napautus valitsee koko numeron käsin kopioitavaksi (ilman JS:ää tai jos kopiointi estetään). */
+  .donation-number,
+  .donation-iban {
+    user-select: all;
+    -webkit-user-select: all;
   }
 
   .copy-btn {

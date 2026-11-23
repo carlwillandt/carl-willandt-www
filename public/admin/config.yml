@@ -134,7 +134,8 @@ collections:
               hint: "Tyhjä = kortti piilotetaan. Jos sekä MobilePay-numero että tilinumero ovat tyhjiä, koko rahallisen tuen osio piilotetaan." }
           - { label: "Tilisiirto: saaja", name: bankRecipient, widget: string, required: false }
           - { label: "Tilisiirto: tilinumero", name: bankIban, widget: string, required: false,
-              hint: "Tyhjä = kortti piilotetaan. Jos sekä MobilePay-numero että tilinumero ovat tyhjiä, koko rahallisen tuen osio piilotetaan." }
+              pattern: ['^\s*[Ff][Ii]\s*\d{2}(\s*\d){14}\s*$', "Tarkista tilinumero. Muoto: FI00 0000 0000 0000 00"],
+              hint: "Tyhjä = kortti piilotetaan. Jos sekä MobilePay-numero että tilinumero ovat tyhjiä, koko rahallisen tuen osio piilotetaan. Väärällä tarkistussummalla sivustoa ei julkaista, ja edellinen versio jää näkyviin." }
           - { label: "Tilisiirto: viesti", name: bankMessage, widget: string, required: false }
           - { label: "Rahallinen tuki: huomautus vaalirahoitusrajoista", name: donationNote, widget: text, required: false }
           - { label: "Rahallinen tuki: kiitosteksti", name: donationThanks, widget: string, required: false }
