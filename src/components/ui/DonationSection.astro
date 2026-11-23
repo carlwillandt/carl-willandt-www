@@ -37,7 +37,7 @@ const message = bankMessage?.trim();
               <div class="donation-row">
                 <dt>Numero</dt>
                 <dd class="donation-value">
-                  <span class="donation-number">{mobilepay}</span>
+                  <span class="donation-number" data-copy-value>{mobilepay}</span>
                   <button type="button" class="copy-btn" data-copy={mobilepay.replace(/\s+/g, '')} data-copy-label="MobilePay-numero" aria-label="Kopioi MobilePay-numero" hidden>
                     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
                     <span class="copy-btn-text">Kopioi</span>
@@ -61,7 +61,7 @@ const message = bankMessage?.trim();
               <div class="donation-row">
                 <dt>Tilinumero</dt>
                 <dd class="donation-value">
-                  <span class="donation-iban">{iban}</span>
+                  <span class="donation-iban" data-copy-value>{iban}</span>
                   <button type="button" class="copy-btn" data-copy={iban.replace(/\s+/g, '')} data-copy-label="Tilinumero" aria-label="Kopioi tilinumero" hidden>
                     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
                     <span class="copy-btn-text">Kopioi</span>
@@ -90,25 +90,38 @@ const message = bankMessage?.trim();
 <script>
   const status = document.querySelector<HTMLElement>('[data-copy-status]');
 
+  function announce(message: string) {
+    if (!status) return;
+    // Tyhjennys ensin, jotta sama viesti luetaan uudelleen toistuvalla kopioinnilla.
+    status.textContent = '';
+    requestAnimationFrame(() => { status.textContent = message; });
+  }
+
   if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
     document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
       btn.hidden = false;
       const text = btn.querySelector<HTMLElement>('.copy-btn-text');
+      const label = btn.dataset.copyLabel ?? '';
       let timer: number | undefined;
+
+      const showFor = (buttonText: string, ms: number) => {
+        if (text) text.textContent = buttonText;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => { if (text) text.textContent = 'Kopioi'; }, ms);
+      };
 
       btn.addEventListener('click', async () => {
         try {
           // Haetaan writeText klikkaushetkellä, ei etukäteen.
           await navigator.clipboard.writeText(btn.dataset.copy ?? '');
-          if (text) text.textContent = 'Kopioitu';
-          if (status) {
-            status.textContent = '';
-            requestAnimationFrame(() => { status.textContent = `${btn.dataset.copyLabel} kopioitu`; });
-          }
-          window.clearTimeout(timer);
-          timer = window.setTimeout(() => { if (text) text.textContent = 'Kopioi'; }, 2000);
+          showFor('Kopioitu', 2000);
+          announce(`${label} kopioitu`);
         } catch {
-          if (text) text.textContent = 'Kopioi';
+          // Kopiointi estetty: kerrotaan se ja valitaan arvo valmiiksi käsin kopioitavaksi.
+          showFor('Ei onnistunut', 3000);
+          announce(`${label}: kopiointi ei onnistunut. Valitse ja kopioi teksti itse.`);
+          const value = btn.parentElement?.querySelector('[data-copy-value]');
+          if (value) window.getSelection()?.selectAllChildren(value);
         }
       });
     });
@@ -215,7 +228,7 @@ const message = bankMessage?.trim();
     border: 1px solid rgba(13, 27, 42, 0.15);
     border-radius: 9999px;
     background: transparent;
-    color: var(--color-green-brand);
+    color: var(--color-navy);
     font-family: var(--font-family-sans);
     font-size: 0.75rem;
     font-weight: 600;
